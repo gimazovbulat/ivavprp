@@ -47,6 +47,4 @@ public class AchievementController {
         AchievementDto savedAch = achievementsService.save(achievementDto);
         return ResponseEntity.ok(savedAch);
     }
-
-
 }

@@ -25,7 +25,7 @@ public class SkillsController {
     }
 
     @GetMapping("/skills")
-    public ResponseEntity getSkill(@RequestParam String name) {
+    public ResponseEntity getByName(@RequestParam String name) {
         List<SkillDto> skills = skillsService.findByName(name);
         return ResponseEntity.ok(skills);
     }
