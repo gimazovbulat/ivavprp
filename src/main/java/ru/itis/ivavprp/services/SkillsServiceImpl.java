@@ -1,5 +1,6 @@
 package ru.itis.ivavprp.services;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.ivavprp.dto.SkillDto;
@@ -50,5 +51,11 @@ public class SkillsServiceImpl implements SkillsService {
         if (optionalSkill.isPresent()) {
             return Skill.toSkillDto(optionalSkill.get());
         } else throw new IllegalStateException(); //todo custom exception
+    }
+
+    public List<SkillDto> getTopSkills() {
+        return skillsRepository.getTopSkills(PageRequest.of(0, 10)).stream()
+                .map(Skill::toSkillDto)
+                .collect(Collectors.toList());
     }
 }

@@ -18,4 +18,8 @@ public class VacancyDto {
     private String text;
     private Date time;
     private WorkSchedule workSchedule;
+    private String emplTypeToShow;
+    private String workScheduleToShow;
+    private int minSalary;
+    private int maxSalary;
 }

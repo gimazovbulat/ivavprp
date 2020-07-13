@@ -1,5 +1,6 @@
 package ru.itis.ivavprp.repositories;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +16,7 @@ public interface SkillsRepository extends JpaRepository<Skill, Long> {
     List<Skill> findByName(@Param("name") String name);
 
     Optional<Skill> findById(Long id);
+
+    @Query("SELECT distinct skill from Skill skill order by skill.name")
+    List<Skill> getTopSkills(Pageable pageable);
 }

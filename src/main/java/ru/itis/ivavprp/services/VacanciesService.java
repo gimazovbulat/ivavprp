@@ -1,6 +1,9 @@
 package ru.itis.ivavprp.services;
 
+import org.springframework.data.jpa.domain.Specification;
+import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.VacancyDto;
+import ru.itis.ivavprp.models.Vacancy;
 
 import java.util.List;
 
@@ -11,7 +14,9 @@ public interface VacanciesService {
 
     void delete(Long id);
 
-    List<VacancyDto> findByName(String name, int page, int size);
+    List<VacancyDto> findAll(Specification<Vacancy> spec, int page, int size);
 
-    List<VacancyDto> findAll(int page, int size);
+    List<SkillDto> addSkill(Long vacancyId, Long skillId);
+
+    List<SkillDto> removeSkill(Long vacancyId, Long skillId);
 }
