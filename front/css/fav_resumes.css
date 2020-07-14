@@ -1,0 +1,98 @@
+body{
+    background-color: #d1eced;
+}
+
+header{
+    background-color: #fff;
+}
+
+.avatar img {
+    margin-top: 40px;
+}
+
+.navbar-brand img {
+    width: 216px;
+    height: 72px;
+}
+
+.profile{
+    border-radius:15px 15px 15px 15px;
+    margin-top: 50px;
+    background-color: white;
+}
+
+.text-box{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.competitions_white_box{
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+}
+
+.title{
+    padding-top: 50px;
+    padding-bottom: 70px;
+    font-weight: 700;
+    text-align: center;
+    padding-left: 30px;
+}
+
+.title__main{
+    font-weight: 700;
+    font-size: 34px;
+}
+
+.title__text{
+    font-weight: 400;
+    font-size: 22px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+.feature{
+    margin-bottom: 36px;
+    text-align: center;
+}
+
+.feature__icon{
+    font-size: 60px;
+    margin-right: 37px;
+    text-align: center;
+}
+
+.feature__title{
+    font-weight: 700;
+    text-align: center;
+}
+
+.feature__text{
+    color: #777777;
+    text-align: center;
+}
+
+.border{
+    border: #02c2cb;
+}
+
+.feature__block{
+    text-align: center;
+}
+
+.competitions{
+    margin-bottom: 50px;
+}
+
+footer{
+    margin-top: 50px;
+    background-color: black;
+}
+
+.list{
+    margin-bottom: 30px;
+}
+
+.button{
+    text-align: end;
+}
