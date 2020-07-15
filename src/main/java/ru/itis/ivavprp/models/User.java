@@ -1,25 +1,23 @@
 package ru.itis.ivavprp.models;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.UserDto;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
-@Builder
 @Data
 @Entity
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
-@Table(schema = "db_inheritance", name = "users")
+@Table(schema = "ivavprp", name = "users")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User implements UserDetails {
     @Id

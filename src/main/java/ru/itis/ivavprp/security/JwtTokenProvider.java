@@ -2,6 +2,7 @@ package ru.itis.ivavprp.security;
 
 
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +32,7 @@ public class JwtTokenProvider {
     private long validityInMilliseconds;
 
 
+    @Qualifier("userService")
     @Autowired
     private UserDetailsService userDetailsService;
 
