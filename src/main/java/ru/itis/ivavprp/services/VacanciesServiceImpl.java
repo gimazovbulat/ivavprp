@@ -88,4 +88,10 @@ public class VacanciesServiceImpl implements VacanciesService {
         }
         throw new IllegalStateException(); // todo custom exception
     }
+
+    @Override
+    public List<VacancyDto> findAllBySkills(List<SkillDto> skillsDtos) {
+        List<Skill> skills = skillsDtos.stream().map(Skill::fromSkillDto).collect(Collectors.toList());
+        return vacanciesRepository.findAllBySkillsIn(skills).stream().map(Vacancy::toVacancyDto).collect(Collectors.toList());
+    }
 }

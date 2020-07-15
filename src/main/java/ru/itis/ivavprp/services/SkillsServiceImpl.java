@@ -53,6 +53,11 @@ public class SkillsServiceImpl implements SkillsService {
         } else throw new IllegalStateException(); //todo custom exception
     }
 
+    @Override
+    public List<SkillDto> findAll() {
+        return skillsRepository.findAll().stream().map(Skill::toSkillDto).collect(Collectors.toList());
+    }
+
     public List<SkillDto> getTopSkills() {
         return skillsRepository.getTopSkills(PageRequest.of(0, 10)).stream()
                 .map(Skill::toSkillDto)

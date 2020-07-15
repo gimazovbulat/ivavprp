@@ -1,8 +1,10 @@
-package ru.itis.ivavprp.search;
+package ru.itis.ivavprp.search.vacancies;
 
 import lombok.Getter;
 import org.springframework.data.jpa.domain.Specification;
 import ru.itis.ivavprp.models.Vacancy;
+import ru.itis.ivavprp.search.SearchOperation;
+import ru.itis.ivavprp.search.SpecSearchCriteria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,6 @@ public class VacancySpecificationBuilder {
     public VacancySpecificationBuilder() {
         params = new ArrayList<>();
     }
-
 
     public final VacancySpecificationBuilder with(final String key, final String operation, final Object value, final String prefix, final String suffix) {
         return with(null, key, operation, value, prefix, suffix);

@@ -1,7 +1,8 @@
-package ru.itis.ivavprp.search;
+package ru.itis.ivavprp.search.resumes;
 
 import org.springframework.data.jpa.domain.Specification;
 import ru.itis.ivavprp.models.Vacancy;
+import ru.itis.ivavprp.search.SpecSearchCriteria;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

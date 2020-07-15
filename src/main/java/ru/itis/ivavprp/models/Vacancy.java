@@ -9,7 +9,7 @@ import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.dto.WorkSchedule;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -33,7 +33,7 @@ public class Vacancy {
     @Column(name = "max")
     private Integer maxSalary;
     private String text;
-    private Date time;
+    private LocalDateTime time;
     @Enumerated(EnumType.STRING)
     @Column(name = "work_schedule")
     private WorkSchedule workSchedule;
@@ -71,13 +71,15 @@ public class Vacancy {
                 .workScheduleToShow(vacancy.getWorkScheduleToShow())
                 .emplTypeToShow(vacancy.getEmplTypeToShow())
                 .time(vacancy.getTime())
+                .month(vacancy.getTime().getMonth())
+                .day(vacancy.getTime().getDayOfMonth())
                 .workSchedule(vacancy.getWorkSchedule())
                 .build();
     }
 
     //fills ..ToShow variables with names that will be shown in view
     @PostLoad
-    private void fillValuesToShow(){
+    private void fillValuesToShow() {
         emplTypeToShow = employmentType.getValueToShow();
         workScheduleToShow = workSchedule.getValueToShow();
     }

@@ -14,4 +14,6 @@ public interface SkillsService {
     SkillDto update(SkillDto skill);
 
     SkillDto findById(Long id);
+
+    List<SkillDto> findAll();
 }
