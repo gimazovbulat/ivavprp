@@ -94,7 +94,16 @@
             <artifactId>guava</artifactId>
             <version>29.0-jre</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
     </dependencies>
+
+
 
     <build>
         <plugins>
