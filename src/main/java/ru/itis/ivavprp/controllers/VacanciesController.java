@@ -49,7 +49,7 @@ public class VacanciesController {
                                                    int page,
                                                    int size,
                                                    int coll) {
-        List<?> results = searchService.getResults(search, page, size, coll);
+        List<?> results = searchService.getVacanciesResults(search, page, size, coll);
         return (List<VacancyDto>) results;
     }
 }
