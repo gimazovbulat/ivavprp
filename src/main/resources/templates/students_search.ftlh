@@ -18,12 +18,18 @@
         function search() {
             let page = 0;
             let size = 10;
-            let url = "/vacancies?search=";
-            let results = $('#results')
-            let name = $('#name');
+            let url = "/students?search=";
+            let results = document.getElementById('results')
+
+            let name = $('#name').val();
+            console.log(name)
             if (name !== undefined) {
                 let nameAr = name.split(" ")
-                url += "firstName:" + nameAr[0] + "," + "lastName:" + nameAr[1] + ",";
+                if (nameAr.length === 2){
+                    url += "firstName~" + nameAr[0] + "," + "lastName~" + nameAr[1] + ",";
+                } else {
+                    url += "firstName~" + nameAr[0];
+                }
             }
             let courses = $('#courses')
             let coursesVals = courses.val()
@@ -44,7 +50,6 @@
                             results.innerHTML += "<a href='/students/'" + response[i].id + ">"
                                 + response[i].firstName + " " + response[i].lastName + '</a><br>';
                         }
-
                     }
             })
         }
@@ -73,8 +78,9 @@
     <option value="3">3 course</option>
     <option value="4">4 course</option>
 </select>
-<input name="name" form="search">
+<input name="name" form="search" id="name">
 
+<button onclick="search()">Find</button>
 <div id="results"></div>
 </body>
 </html>

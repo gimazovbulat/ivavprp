@@ -1,17 +1,17 @@
 package ru.itis.ivavprp.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.StudentDto;
-import ru.itis.ivavprp.dto.TeacherDto;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Student;
-import ru.itis.ivavprp.models.Teacher;
 import ru.itis.ivavprp.repositories.StudentRepository;
-import ru.itis.ivavprp.repositories.TeacherRepository;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl extends UserService implements StudentService {
@@ -39,5 +39,12 @@ public class StudentServiceImpl extends UserService implements StudentService {
         student.setPassword(passwordEncoder.encode(studentDto.getPassword()));
         studentRepository.save(student);
         return true;
+    }
+
+    @Override
+    public List<StudentDto> findAll(Specification<Student> spec, int page, int size) {
+       return studentRepository.findAll(spec, PageRequest.of(page, size)).stream()
+               .map(Student::toStudentDto)
+               .collect(Collectors.toList());
     }
 }

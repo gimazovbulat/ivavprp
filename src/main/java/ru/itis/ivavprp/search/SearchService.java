@@ -5,13 +5,17 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.ResumeDto;
 import ru.itis.ivavprp.dto.SkillDto;
+import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.Resume;
+import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.models.Vacancy;
 import ru.itis.ivavprp.search.resumes.ResumeSpecificationBuilder;
+import ru.itis.ivavprp.search.users.StudentSpecificationBuilder;
 import ru.itis.ivavprp.search.vacancies.VacancySpecificationBuilder;
 import ru.itis.ivavprp.services.ResumeService;
 import ru.itis.ivavprp.services.SkillsService;
+import ru.itis.ivavprp.services.StudentService;
 import ru.itis.ivavprp.services.VacanciesService;
 
 import java.util.ArrayList;
@@ -24,12 +28,14 @@ public class SearchService {
     private final VacanciesService vacanciesService;
     private final SkillsService skillsService;
     private final ResumeService resumeService;
+    private final StudentService studentService;
 
     public SearchService(VacanciesService vacanciesService, SkillsService skillsService,
-                         ResumeService resumeService) {
+                         ResumeService resumeService, StudentService studentService) {
         this.vacanciesService = vacanciesService;
         this.skillsService = skillsService;
         this.resumeService = resumeService;
+        this.studentService = studentService;
     }
 
     public List<?> getVacanciesResults(String search,
@@ -124,5 +130,22 @@ public class SearchService {
         return vacancies;
     }
 
+    public List<?> getStudentsResults(String search,
+                                      int page,
+                                      int size) {
+        StudentSpecificationBuilder builder = new StudentSpecificationBuilder();
+        String operationSetExper = Joiner.on("|").join(SearchOperation.SIMPLE_OPERATION_SET);
+
+        Pattern pattern = Pattern.compile("(\\w+?)(" + operationSetExper + ")(\\p{Punct}?)(\\w+?)(\\p{Punct}?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(4), matcher.group(3), matcher.group(5));
+        }
+
+        Specification<Student> spec = builder.build();
+        List<StudentDto> students = studentService.findAll(spec, page, size);
+
+        return students;
+    }
 
 }
