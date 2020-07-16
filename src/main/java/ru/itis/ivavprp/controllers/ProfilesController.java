@@ -1,8 +1,14 @@
 package ru.itis.ivavprp.controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ProfileController {
-    
+public class ProfilesController {
+
+    @GetMapping("/profile")
+    public void getProfile(@PathVariable String id){
+
+    }
 }
