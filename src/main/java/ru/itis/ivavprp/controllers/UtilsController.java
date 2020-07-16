@@ -3,7 +3,10 @@ package ru.itis.ivavprp.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.ivavprp.dto.*;
+import ru.itis.ivavprp.dto.EmplTypesToFront;
+import ru.itis.ivavprp.dto.EmploymentType;
+import ru.itis.ivavprp.dto.WorkSchedule;
+import ru.itis.ivavprp.dto.WorkScheduleToFront;
 import ru.itis.ivavprp.services.SkillsService;
 
 import java.util.Arrays;
@@ -19,7 +22,7 @@ public class UtilsController {
     }
 
     @GetMapping("/employment_type")
-    public ResponseEntity<List<EmplTypesToFront>> getEmplTypes(){
+    public ResponseEntity<List<EmplTypesToFront>> getEmplTypes() {
         List<EmplTypesToFront> emplTypes = Arrays.stream(EmploymentType.values())
                 .map(employmentType -> new EmplTypesToFront(employmentType.getValueToShow(), employmentType.getValue()))
                 .collect(Collectors.toList());
@@ -27,7 +30,7 @@ public class UtilsController {
     }
 
     @GetMapping("/work_schedule")
-    public ResponseEntity<List<WorkScheduleToFront>> getWorkSchedule(){
+    public ResponseEntity<List<WorkScheduleToFront>> getWorkSchedule() {
         List<WorkScheduleToFront> workScheduleTypes = Arrays.stream(WorkSchedule.values())
                 .map(workSchedule -> new WorkScheduleToFront(workSchedule.getValueToShow(), workSchedule.getValue()))
                 .collect(Collectors.toList());

@@ -15,9 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(schema = "ivavprp", name = "resume")
 public class Resume {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @ManyToMany
     @JoinTable(schema = "ivavprp", name = "skills_resumes",
             joinColumns = @JoinColumn(name = "resume_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
