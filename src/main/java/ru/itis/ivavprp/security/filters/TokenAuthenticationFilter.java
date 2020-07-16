@@ -1,32 +1,37 @@
 package ru.itis.ivavprp.security.filters;
 
+
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 import ru.itis.ivavprp.security.authentication.TokenAuthentication;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+
+@Component
 public class TokenAuthenticationFilter implements Filter {
-    // константа, содержит название токена
     private final static String AUTH_HEADER = "AUTH";
+    private final UserDetailsService service;
+
+    public TokenAuthenticationFilter(@Qualifier("userService") UserDetailsService service) {
+        this.service = service;
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        // вытаскиваем запрос
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        // вытаскиваем заголовок с токеном
         String tokenValue = request.getHeader(AUTH_HEADER);
-        // если заголовок содержит что-либо
         if (tokenValue != null) {
-            // создаем объект токен-аутентификации
             TokenAuthentication authentication = new TokenAuthentication();
-            // в него кладем токен
             authentication.setToken(tokenValue);
-            // отдаем контексту
+            authentication.setAuthenticated(true);
+            authentication.setUserDetails(service.loadUserByUsername(tokenValue));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        // отдаем запрос дальше (его встретит либо другой фильтр, либо что-то еще)
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

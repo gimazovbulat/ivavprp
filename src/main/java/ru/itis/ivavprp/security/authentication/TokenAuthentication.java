@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-
+@Component
 public class TokenAuthentication implements Authentication {
 
     private UserDetails userDetails;
@@ -54,6 +55,8 @@ public class TokenAuthentication implements Authentication {
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
     }
+
+
 
     public void setToken(String token) {
         this.token = token;
