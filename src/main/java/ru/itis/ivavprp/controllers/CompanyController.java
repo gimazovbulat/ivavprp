@@ -19,10 +19,5 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @PostMapping("/registration")
-    public CompanyDto saveCompany(@RequestBody CompanyDto companyDto) {
-        companyService.save(companyDto);
-        return companyDto;
-    }
 
 }

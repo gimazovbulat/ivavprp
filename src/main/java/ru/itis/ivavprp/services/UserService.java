@@ -8,10 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.UserDto;
 import ru.itis.ivavprp.models.Role;
+import ru.itis.ivavprp.models.Token;
 import ru.itis.ivavprp.models.User;
+import ru.itis.ivavprp.repositories.TokensRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
 
 import java.util.*;
+
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
@@ -20,11 +23,19 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private TokensRepository tokensRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> userDetails = userRepository.findByEmail(email);
-        return userDetails.get();
+    public UserDetails loadUserByUsername(String value) throws UsernameNotFoundException {
+        Optional<Token> authenticationCandidate = tokensRepository.findFirstByValue(value);
+        if (authenticationCandidate.isPresent()) {
+            Token token = authenticationCandidate.get();
+            User user = token.getUser();
+            user.setCurrentToken(token);
+            return user;
+        }
+        throw new UsernameNotFoundException("Email not found");
     }
 
     public boolean save(UserDto userDto) {
@@ -33,9 +44,6 @@ public class UserService implements UserDetailsService {
             return false;
         }
         User newUser = User.fromUserDto(userDto);
-        newUser.setIsActive(true);
-        newUser.setRoles(Collections.singleton(Role.USER));
-        newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(newUser);
         return true;
     }
@@ -54,8 +62,6 @@ public class UserService implements UserDetailsService {
 
         return result;
     }
-
-
 
 
 }

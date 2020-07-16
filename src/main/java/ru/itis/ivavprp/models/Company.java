@@ -8,6 +8,7 @@ import ru.itis.ivavprp.dto.CompanyDto;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,8 +23,8 @@ public class Company extends User {
 
     @Builder(builderMethodName = "companyBuilder")
     public Company(Long id, String email, String password, Boolean isActive, Set<Role> roles,
-                   String name, String photo, String about) {
-        super(id, email, password, isActive, roles);
+                   String name, String photo, String about, List<Token> tokens, Token currentToken) {
+        super(id, email, password, isActive, roles, tokens, currentToken);
 
         this.name = name;
         this.photo = photo;

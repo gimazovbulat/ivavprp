@@ -21,10 +21,5 @@ public class TeacherController {
 
     }
 
-    @PostMapping("/registration")
-    public TeacherDto saveTeacher(@RequestBody TeacherDto teacherDto) {
-        teacherService.save(teacherDto);
-        return teacherDto;
-    }
 
 }

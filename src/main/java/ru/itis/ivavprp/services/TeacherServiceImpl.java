@@ -14,23 +14,23 @@ import java.util.Collections;
 @Service
 public class TeacherServiceImpl extends UserService implements TeacherService{
 
-    @Autowired
-    private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public TeacherServiceImpl(TeacherRepository teacherRepository, PasswordEncoder passwordEncoder) {
+        this.teacherRepository = teacherRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public boolean save(TeacherDto teacherDto) {
         if (teacherRepository.findByEmail(teacherDto.getEmail()).isPresent()) {
             return false;
         }
         Teacher teacher = new Teacher();
-        teacher.setFirstName(teacherDto.getFirstName());
-        teacher.setLastName(teacherDto.getLastName());
-        teacher.setPhoto(teacherDto.getPhoto());
         teacher.setEmail(teacherDto.getEmail());
-        teacher.setIsActive(true);
-        teacher.setRoles(Collections.singleton(Role.USER));
+        teacher.setIsActive(true);;
+        teacher.setRoles(Collections.singleton(Role.TEACHER));
         teacher.setPassword(passwordEncoder.encode(teacherDto.getPassword()));
         teacherRepository.save(teacher);
         return true;

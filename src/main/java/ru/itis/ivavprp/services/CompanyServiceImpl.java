@@ -13,25 +13,23 @@ import ru.itis.ivavprp.repositories.CompanyRepository;
 import java.util.Collections;
 
 @Service
-public class CompanyServiceImpl extends UserService implements CompanyService{
+public class CompanyServiceImpl extends UserService implements CompanyService {
+    private final CompanyRepository companyRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private CompanyRepository companyRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public CompanyServiceImpl(CompanyRepository companyRepository, PasswordEncoder passwordEncoder) {
+        this.companyRepository = companyRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public boolean save(CompanyDto companyDto) {
         if (companyRepository.findByEmail(companyDto.getEmail()).isPresent()) {
             return false;
         }
         Company company = new Company();
-        company.setName(companyDto.getName());
-        company.setPhoto(companyDto.getPhoto());
         company.setEmail(companyDto.getEmail());
-        company.setAbout(companyDto.getAbout());
         company.setIsActive(true);
-        company.setRoles(Collections.singleton(Role.USER));
+        company.setRoles(Collections.singleton(Role.COMPANY));
         company.setPassword(passwordEncoder.encode(companyDto.getPassword()));
         companyRepository.save(company);
         return true;
