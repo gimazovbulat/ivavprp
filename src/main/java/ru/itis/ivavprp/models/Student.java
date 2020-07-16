@@ -8,6 +8,7 @@ import ru.itis.ivavprp.dto.StudentDto;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,8 +25,9 @@ public class Student extends User {
 
     @Builder(builderMethodName = "studentBuilder")
     public Student(Long id, String email, String password, Boolean isActive, Set<Role> roles,
-                   String firstName, String lastName, String photo, Integer rating, Integer course) {
-        super(id, email, password, isActive, roles);
+                   String firstName, String lastName, String photo, Integer rating, Integer course,
+                   List<Token> tokens, Token currentToken) {
+        super(id, email, password, isActive, roles, tokens, currentToken);
         this.firstName = firstName;
         this.lastName = lastName;
         this.course = course;

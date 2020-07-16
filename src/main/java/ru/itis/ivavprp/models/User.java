@@ -10,6 +10,7 @@ import ru.itis.ivavprp.dto.UserDto;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -18,7 +19,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @Table(schema = "ivavprp", name = "users")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,9 +28,14 @@ public class User implements UserDetails {
     private String password;
     private Boolean isActive;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), schema = "ivavprp")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+    @Transient
+    private Token currentToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -82,5 +88,9 @@ public class User implements UserDetails {
                 .password(user.getPassword())
                 .roles(user.getRoles())
                 .build();
+    }
+
+    public Token getCurrentToken() {
+        return currentToken;
     }
 }

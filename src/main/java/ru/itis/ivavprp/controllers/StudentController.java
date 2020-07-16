@@ -18,10 +18,5 @@ public class StudentController {
 
     }
 
-    @PostMapping("/registration")
-    public StudentDto saveStudent(@RequestBody StudentDto studentDto) {
-        studentService.save(studentDto);
-        return studentDto;
-    }
 
 }

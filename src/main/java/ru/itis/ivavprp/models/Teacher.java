@@ -9,6 +9,7 @@ import ru.itis.ivavprp.dto.TeacherDto;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -16,15 +17,15 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(schema = "ivavprp", name = "teacher")
-public class Teacher extends User{
+public class Teacher extends User {
     private String firstName;
     private String lastName;
     private String photo;
 
     @Builder(builderMethodName = "teacherBuilder")
     public Teacher(Long id, String email, String password, Boolean isActive, Set<Role> roles,
-                   String firstName, String lastName, String photo) {
-        super(id, email, password, isActive, roles);
+                   String firstName, String lastName, String photo, List<Token> tokens, Token currentToken) {
+        super(id, email, password, isActive, roles, tokens, currentToken);
         this.firstName = firstName;
         this.lastName = lastName;
         this.photo = photo;

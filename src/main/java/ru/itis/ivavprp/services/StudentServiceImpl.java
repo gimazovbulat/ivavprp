@@ -12,13 +12,18 @@ import ru.itis.ivavprp.repositories.StudentRepository;
 import ru.itis.ivavprp.repositories.TeacherRepository;
 
 import java.util.Collections;
-@Service
-public class StudentServiceImpl extends UserService implements StudentService{
-    @Autowired
-    private StudentRepository studentRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+@Service
+public class StudentServiceImpl extends UserService implements StudentService {
+
+    private final StudentRepository studentRepository;
+
+    public StudentServiceImpl(StudentRepository studentRepository, PasswordEncoder passwordEncoder) {
+        this.studentRepository = studentRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    private final PasswordEncoder passwordEncoder;
 
     public boolean save(StudentDto studentDto) {
 
@@ -27,12 +32,10 @@ public class StudentServiceImpl extends UserService implements StudentService{
             return false;
         }
         Student student = new Student();
-        student.setFirstName(studentDto.getFirstName());
-        student.setLastName(studentDto.getLastName());
-        student.setPhoto(studentDto.getPhoto());
         student.setEmail(studentDto.getEmail());
+        student.setRating(0);
         student.setIsActive(true);
-        student.setRoles(Collections.singleton(Role.USER));
+        student.setRoles(Collections.singleton(Role.STUDENT));
         student.setPassword(passwordEncoder.encode(studentDto.getPassword()));
         studentRepository.save(student);
         return true;
