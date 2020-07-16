@@ -21,7 +21,7 @@ public class SpecSearchCriteria {
     public SpecSearchCriteria(final String orPredicate, final String key, final SearchOperation operation, final Object value) {
         super();
         this.value = changeUnderscoresToWhiteSpaces(key, value);
-        this.value = changeTypes(key, value);
+        this.value = changeTypes(key, this.value);
         this.orPredicate = orPredicate != null && orPredicate.equals(SearchOperation.OR_PREDICATE_FLAG);
         this.key = key;
         this.operation = operation;
@@ -44,7 +44,7 @@ public class SpecSearchCriteria {
     private Object changeUnderscoresToWhiteSpaces(String key, Object value) {
         if (key.equals("name")) {
             String val = (String) value;
-            return val.replaceAll("_", "");
+            return val.replaceAll("_", " ");
         }
         return value;
     }

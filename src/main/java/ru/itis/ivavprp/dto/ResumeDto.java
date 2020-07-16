@@ -4,25 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.ivavprp.dto.EmploymentType;
+import ru.itis.ivavprp.dto.WorkSchedule;
+import ru.itis.ivavprp.models.Skill;
 
-import java.time.LocalDateTime;
-import java.time.Month;
+import java.util.List;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
-public class VacancyDto {
+public class ResumeDto {
     private Long id;
     private String name;
-    private EmploymentType employmentType;
+    private List<Skill> skills;
     private String text;
-    private LocalDateTime time;
+    private EmploymentType employmentType;
     private WorkSchedule workSchedule;
-    private String emplTypeToShow;
     private String workScheduleToShow;
-    private int minSalary;
-    private int maxSalary;
-    private Month month;
-    private int day;
+    private String emplTypeToShow;
 }

@@ -1,26 +1,22 @@
 package ru.itis.ivavprp.controllers;
 
-import com.google.common.base.Joiner;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.VacancyDto;
-import ru.itis.ivavprp.models.Vacancy;
-import ru.itis.ivavprp.search.SearchOperation;
-import ru.itis.ivavprp.search.VacancySpecificationBuilder;
+import ru.itis.ivavprp.search.SearchService;
 import ru.itis.ivavprp.services.VacanciesService;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RestController
 public class VacanciesController {
     private final VacanciesService vacanciesService;
+    private final SearchService searchService;
 
-    public VacanciesController(VacanciesService vacanciesService) {
+    public VacanciesController(VacanciesService vacanciesService, SearchService searchService) {
         this.vacanciesService = vacanciesService;
+        this.searchService = searchService;
     }
 
     @PostMapping("/vacancies")
@@ -51,18 +47,9 @@ public class VacanciesController {
     @ResponseBody
     public List<VacancyDto> findAllBySpecification(@RequestParam(value = "search", required = false) String search,
                                                    int page,
-                                                   int size) {
-
-        VacancySpecificationBuilder builder = new VacancySpecificationBuilder();
-        String operationSetExper = Joiner.on("|")
-                .join(SearchOperation.SIMPLE_OPERATION_SET);
-        Pattern pattern = Pattern.compile("(\\w+?)(" + operationSetExper + ")(\\p{Punct}?)(\\w+?)(\\p{Punct}?),");
-        Matcher matcher = pattern.matcher(search + ",");
-        while (matcher.find()) {
-            builder.with(matcher.group(1), matcher.group(2), matcher.group(4), matcher.group(3), matcher.group(5));
-        }
-
-        Specification<Vacancy> spec = builder.build();
-        return vacanciesService.findAll(spec, page, size);
+                                                   int size,
+                                                   int coll) {
+        List<?> results = searchService.getVacanciesResults(search, page, size, coll);
+        return (List<VacancyDto>) results;
     }
 }

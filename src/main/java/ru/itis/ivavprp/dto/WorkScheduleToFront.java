@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
-public class SkillDto {
-    private Long id;
-    private String name;
-    private int points;
-    private String nameToShow;
+@Builder
+public class WorkScheduleToFront {
+    private String show;
+    private String actual;
 }

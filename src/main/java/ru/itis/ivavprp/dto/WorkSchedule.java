@@ -15,4 +15,12 @@ public enum WorkSchedule {
         this.value = value;
         this.valueToShow = valueToShow;
     }
+
+    @Override
+    public String toString() {
+        return "WorkSchedule{" +
+                "value='" + value + '\'' +
+                ", valueToShow='" + valueToShow + '\'' +
+                '}';
+    }
 }

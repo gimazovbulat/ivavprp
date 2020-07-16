@@ -1,23 +1,22 @@
 package ru.itis.ivavprp.search;
 
 import org.springframework.data.jpa.domain.Specification;
-import ru.itis.ivavprp.models.Vacancy;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class VacancySpecification implements Specification<Vacancy> {
+public class EntitySpecification<T> implements Specification<T> {
     private SpecSearchCriteria criteria;
 
-    public VacancySpecification(final SpecSearchCriteria criteria) {
+    public EntitySpecification(final SpecSearchCriteria criteria) {
         super();
         this.criteria = criteria;
     }
 
     @Override
-    public Predicate toPredicate(final Root<Vacancy> root, final CriteriaQuery<?> query, final CriteriaBuilder builder) {
+    public Predicate toPredicate(final Root<T> root, final CriteriaQuery<?> query, final CriteriaBuilder builder) {
         switch (criteria.getOperation()) {
             case EQUALITY:
                 return builder.equal(root.get(criteria.getKey()), criteria.getValue());

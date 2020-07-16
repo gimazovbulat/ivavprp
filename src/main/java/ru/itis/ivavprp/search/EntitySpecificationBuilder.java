@@ -2,26 +2,24 @@ package ru.itis.ivavprp.search;
 
 import lombok.Getter;
 import org.springframework.data.jpa.domain.Specification;
-import ru.itis.ivavprp.models.Vacancy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class VacancySpecificationBuilder {
+public class EntitySpecificationBuilder<T> {
 
     private final List<SpecSearchCriteria> params;
 
-    public VacancySpecificationBuilder() {
+    public EntitySpecificationBuilder() {
         params = new ArrayList<>();
     }
 
-
-    public final VacancySpecificationBuilder with(final String key, final String operation, final Object value, final String prefix, final String suffix) {
+    public final EntitySpecificationBuilder<T> with(final String key, final String operation, final Object value, final String prefix, final String suffix) {
         return with(null, key, operation, value, prefix, suffix);
     }
 
-    public final VacancySpecificationBuilder with(final String orPredicate, final String key, final String operation, final Object value, final String prefix, final String suffix) {
+    public final EntitySpecificationBuilder<T> with(final String orPredicate, final String key, final String operation, final Object value, final String prefix, final String suffix) {
         SearchOperation op = SearchOperation.getSimpleOperation(operation.charAt(0));
         if (op != null) {
             if (op == SearchOperation.EQUALITY) {
@@ -41,16 +39,16 @@ public class VacancySpecificationBuilder {
         return this;
     }
 
-    public Specification<Vacancy> build() {
+    public Specification<T> build() {
         if (params.size() == 0)
             return null;
 
-        Specification<Vacancy> result = new VacancySpecification(params.get(0));
+        Specification<T> result = new EntitySpecification<>(params.get(0));
 
         for (int i = 1; i < params.size(); i++) {
             result = params.get(i).isOrPredicate()
-                    ? Specification.where(result).or(new VacancySpecification(params.get(i)))
-                    : Specification.where(result).and(new VacancySpecification(params.get(i)));
+                    ? Specification.where(result).or(new EntitySpecification(params.get(i)))
+                    : Specification.where(result).and(new EntitySpecification(params.get(i)));
         }
 
         return result;

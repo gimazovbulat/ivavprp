@@ -34,10 +34,11 @@ public class Skill {
                 .build();
     }
 
-    public static SkillDto toSkillDto(Skill skill){
+    public static SkillDto toSkillDto(Skill skill) {
         return SkillDto.builder()
                 .id(skill.getId())
-                .name(skill.getName())
+                .nameToShow(skill.getName())
+                .name(skill.getName().replaceAll(" ", "_"))
                 .points(skill.getPoints())
                 .build();
     }

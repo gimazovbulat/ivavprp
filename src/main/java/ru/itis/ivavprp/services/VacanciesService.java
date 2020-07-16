@@ -19,4 +19,6 @@ public interface VacanciesService {
     List<SkillDto> addSkill(Long vacancyId, Long skillId);
 
     List<SkillDto> removeSkill(Long vacancyId, Long skillId);
+
+    List<VacancyDto> findAllBySkills(List<SkillDto> skills);
 }

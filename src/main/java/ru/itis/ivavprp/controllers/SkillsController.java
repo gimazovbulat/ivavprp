@@ -25,8 +25,13 @@ public class SkillsController {
     }
 
     @GetMapping("/skills")
-    public ResponseEntity getByName(@RequestParam String name) {
-        List<SkillDto> skills = skillsService.findByName(name);
+    public ResponseEntity<List<SkillDto>> getByName(@RequestParam(required = false) String name) {
+        List<SkillDto> skills;
+        if (name != null) {
+            skills = skillsService.findByName(name);
+        } else {
+            skills = skillsService.findAll();
+        }
         return ResponseEntity.ok(skills);
     }
 
