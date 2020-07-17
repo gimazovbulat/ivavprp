@@ -18,4 +18,5 @@ public class TokenDto {
                 .value(token)
                 .build();
     }
+
 }
