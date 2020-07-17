@@ -8,5 +8,8 @@ import java.util.Optional;
 
 public interface TokensRepository extends JpaRepository<Token, Long> {
     Optional<Token> findFirstByValue(String value);
+
     void deleteTokensByExpiredDateTimeBefore(LocalDateTime now);
+
+    void deleteTokenByValue(String value);
 }
