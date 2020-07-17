@@ -79,6 +79,8 @@ public class Vacancy {
                 .minSalary(vacancy.getMinSalary())
                 .workScheduleToShow(vacancy.getWorkScheduleToShow())
                 .emplTypeToShow(vacancy.getEmplTypeToShow())
+                .companyId(vacancy.getCompany().getId())
+                .companyName(vacancy.getCompany().getName())
                 .time(vacancy.getTime())
                 .month(vacancy.getTime().getMonth())
                 .day(vacancy.getTime().getDayOfMonth())

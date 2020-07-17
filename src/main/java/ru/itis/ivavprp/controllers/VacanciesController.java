@@ -12,6 +12,7 @@ import ru.itis.ivavprp.search.SearchService;
 import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.VacanciesService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -64,12 +65,18 @@ public class VacanciesController {
        return ResponseEntity.ok(vacancy);
     }
 
-    @GetMapping("/vacancies")
+    @GetMapping("/vacancies/{id}")
     @ResponseBody
     public List<VacancyDto> findAllBySpecification(@RequestParam(value = "search", required = false) String search,
                                                    int page,
                                                    int size,
-                                                   int coll) {
+                                                   int coll, @PathVariable(value = "id", required = false) Long id) {
+        if (id == 0) {
+            List<VacancyDto> vacancyDtos = new ArrayList<>();
+            VacancyDto oneById = vacanciesService.getOneById(id);
+            vacancyDtos.add(oneById);
+            return vacancyDtos;
+        }
         List<?> results = searchService.getVacanciesResults(search, page, size, coll);
         return (List<VacancyDto>) results;
     }

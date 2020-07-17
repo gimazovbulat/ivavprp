@@ -106,17 +106,14 @@
             let emplTypeVals = emplTypes.val()
             if (emplTypeVals !== undefined) {
                 if (emplTypeVals.length === 0) {
-                    url = url + "employmentTypes:" + "FULL_TIME"
+                    url = url + "employmentType:" + "FULL_TIME"
                     console.log(url)
                 } else {
                     let emplTypeValsJoined = emplTypeVals.join("'")
-                    url = url + "employmentTypes:" + emplTypeValsJoined
+                    url = url + "employmentType:" + emplTypeValsJoined
                     console.log(url)
                 }
             }
-            /*if ($('#pages').val() !== 0) {
-                page = $('#pages').val()
-            }*/
             url = url + "&page=" + page;
             url = url + "&size=" + size;
             if (skillsVals !== undefined) {
@@ -134,8 +131,9 @@
                 contentType: "application/json",
                 success:
                     function (response) {
+                        $('#results').html("")
                         for (let i = 0; i < response.length; i++) {
-                            results.innerHTML += "<a href='/vacancies/'" + response[i].id + ">" + response[i].name + '</a><br>';
+                            results.innerHTML += "<a href=/vacancies/" + response[i].id + ">" + response[i].name + '</a><br>';
                             results.innerHTML += response[i].text + '<br>';
                             results.innerHTML += response[i].day + " ";
                             results.innerHTML += response[i].month.charAt(0) + response[i].month.substring(1).toLowerCase() + '<br>';
@@ -151,6 +149,7 @@
                             }
                             results.innerHTML += response[i].workScheduleToShow + '<br>';
                             results.innerHTML += response[i].emplTypeToShow + '<br>';
+                            results.innerHTML += "<a href=/companies/" + response[i].companyId.toString() + ">" + response[i].companyName + '</a><br>';
                             results.innerHTML += '<br>';
                             // $('#pages').append('<option value=' + i + '>' + (i + 1) + '</option>')
                         }

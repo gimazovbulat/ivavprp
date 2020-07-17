@@ -46,8 +46,9 @@
                 contentType: "application/json",
                 success:
                     function (response) {
+                    $('#results').html("")
                         for (let i = 0; i < response.length; i++) {
-                            results.innerHTML += "<a href='/students/'" + response[i].id + ">"
+                            results.innerHTML += "<a href=/students/" + response[i].id + ">"
                                 + response[i].firstName + " " + response[i].lastName + '</a><br>';
                         }
                     }

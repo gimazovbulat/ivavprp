@@ -26,5 +26,28 @@ public class VacancyDto {
     private int maxSalary;
     private Month month;
     private Company company;
+    private Long companyId;
+    private String companyName;
     private int day;
+
+
+    @Override
+    public String toString() {
+        return "VacancyDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", employmentType=" + employmentType +
+                ", text='" + text + '\'' +
+                ", time=" + time +
+                ", companyId=" + companyId +
+                ", companyName=" + companyName +
+                ", workSchedule=" + workSchedule +
+                ", emplTypeToShow='" + emplTypeToShow + '\'' +
+                ", workScheduleToShow='" + workScheduleToShow + '\'' +
+                ", minSalary=" + minSalary +
+                ", maxSalary=" + maxSalary +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
+    }
 }
