@@ -14,7 +14,12 @@
     function logout() {
         localStorage.removeItem("token")
         if (localStorage.getItem("token") == null) {
-            location.replace("http://localhost:8080/login?logout")
+            let request = new XMLHttpRequest();
+
+
+            request.open("GET", "http://localhost:8080/signOut");
+            request.send();
+            location.replace("http://localhost:8080/login");
         }
     }
 </script>
@@ -27,7 +32,7 @@
             <a class="p-2 text-dark" href="#">Уведомления</a>
         </nav>
 
-        <a class="btn btn-outline-info" href="/login?logout" onclick="logout()">Выход</a>
+        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
 </header>
 <main>

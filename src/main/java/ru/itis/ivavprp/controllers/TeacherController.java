@@ -1,14 +1,16 @@
 package ru.itis.ivavprp.controllers;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.TeacherDto;
+import ru.itis.ivavprp.dto.TeacherInfoDto;
+import ru.itis.ivavprp.models.Teacher;
+import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.TeacherServiceImpl;
 
 @RestController
-@RequestMapping(value = "/teacher/")
 public class TeacherController {
 
 
@@ -19,6 +21,20 @@ public class TeacherController {
 
         this.teacherService = teacherService;
 
+    }
+
+    @GetMapping("/restApi/teachers/{id}")
+    public ResponseEntity<TeacherInfoDto> get(@PathVariable("id") Long id) {
+        System.out.println("qq");
+        return ResponseEntity.ok(teacherService.findTeacherById(id));
+    }
+
+    @PreAuthorize("hasAuthority('TEACHER')")
+    @PostMapping("/teachers")
+    public ResponseEntity<TeacherInfoDto> update(@RequestBody TeacherInfoDto info, @CurrentUser UserDetails userDetails) {
+        Teacher teacher = (Teacher) userDetails;
+        TeacherInfoDto updatedTeacher = teacherService.update(teacher.getId(), info);
+        return ResponseEntity.ok(updatedTeacher);
     }
 
 

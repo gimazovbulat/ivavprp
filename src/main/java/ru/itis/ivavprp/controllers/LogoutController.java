@@ -14,10 +14,10 @@ public class LogoutController {
         this.authService = authService;
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/signOut")
     @PreAuthorize("isAuthenticated()")
-    public void logout(@RequestHeader("AUTH") String auth) {
-        authService.logout(auth);
+    public void logout() {
+        authService.logout();
         return;
     }
 }
