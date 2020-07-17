@@ -38,7 +38,9 @@ public class Resume {
     private String workScheduleToShow;
     @Transient
     private String emplTypeToShow;
-    //add students id
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public static Resume fromResumeDto(ResumeDto resumeDto) {
         return Resume.builder()
