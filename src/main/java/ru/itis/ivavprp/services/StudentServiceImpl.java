@@ -8,6 +8,7 @@ import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.repositories.StudentRepository;
+import ru.itis.ivavprp.repositories.UserRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,8 +19,12 @@ public class StudentServiceImpl extends UserService implements StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository, PasswordEncoder passwordEncoder) {
+    private final UserRepository userRepository;
+
+
+    public StudentServiceImpl(StudentRepository studentRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -28,7 +33,7 @@ public class StudentServiceImpl extends UserService implements StudentService {
     public boolean save(StudentDto studentDto) {
 
 
-        if (studentRepository.findByEmail(studentDto.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(studentDto.getEmail()).isPresent()) {
             return false;
         }
         Student student = new Student();
@@ -43,8 +48,8 @@ public class StudentServiceImpl extends UserService implements StudentService {
 
     @Override
     public List<StudentDto> findAll(Specification<Student> spec, int page, int size) {
-       return studentRepository.findAll(spec, PageRequest.of(page, size)).stream()
-               .map(Student::toStudentDto)
-               .collect(Collectors.toList());
+        return studentRepository.findAll(spec, PageRequest.of(page, size)).stream()
+                .map(Student::toStudentDto)
+                .collect(Collectors.toList());
     }
 }

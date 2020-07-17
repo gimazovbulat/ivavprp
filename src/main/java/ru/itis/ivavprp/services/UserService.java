@@ -34,8 +34,7 @@ public class UserService implements UserDetailsService {
             User user = token.getUser();
             user.setCurrentToken(token);
             return user;
-        }
-        throw new UsernameNotFoundException("Email not found");
+        } else throw new UsernameNotFoundException("Email not found");
     }
 
     public boolean save(UserDto userDto) {

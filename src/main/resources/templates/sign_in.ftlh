@@ -10,28 +10,25 @@
 <body class="text-center">
 <script type="text/javascript" language="javascript">
 
-    const send = async () => {
-        const email = document.getElementById("inputEmail");
-        const password = document.getElementById("inputPassword");
-        const myBody = {
-            "email": email,
-            "password": password
-        };
-        const response = await fetch('http://localhost:8080/login', {
-            method: 'POST',
-            body: myBody,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const myJson = await response.json();
-        ;
-        localStorage.setItem("token", myJson.get("value"));
 
-    }
-    const get = async () => {
-        const response = await fetch('http://localhost:8080/login');
-        const myJson = await response.json();
+    function sendReq() {
+        let request = new XMLHttpRequest();
+
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let slice = this.responseText.slice(10, 46)
+                localStorage.setItem("token", slice)
+                location.replace("http://localhost:8080/main")
+            }
+        };
+        let email = document.getElementById("inputEmail").value;
+        let password = document.getElementById("inputPassword").value;
+        let body = '{"email": ' + '"' + email + '"' + ', "password": ' + '"' + password + '"}'
+        request.open("POST", "http://localhost:8080/login");
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(body);
+
+
     }
 
 
@@ -47,7 +44,8 @@
             <input type="checkbox" value="remember-me"> Запомнить меня
         </label>
     </div>
-    <button class="btn btn-lg btn-block" type="submit" onclick="javascript:send()">Вход</button>
+    <button class="btn btn-lg btn-block" type="button" onclick="javascript: sendReq()">Вход
+    </button>
 
     <button class="btn btn-lg btn-block">Регистрация</button>
     <p class="mt-5 mb-3 text-muted">© 2020</p>
