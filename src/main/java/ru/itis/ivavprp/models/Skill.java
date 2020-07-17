@@ -1,5 +1,6 @@
 package ru.itis.ivavprp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +24,9 @@ public class Skill {
     private int points;
     @ManyToMany(mappedBy = "skills")
     private List<Achievement> achievements;
-//    @ManyToMany(mappedBy = "skills")/
-//    private List<Vacancy> vacancies;
+    @ManyToMany(mappedBy = "skills")
+    @JsonIgnore
+    private List<Vacancy> vacancies;
 
     public static Skill fromSkillDto(SkillDto skillDto) {
         return Skill.builder()

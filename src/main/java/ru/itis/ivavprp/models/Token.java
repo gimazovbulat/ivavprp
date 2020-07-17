@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +21,7 @@ public class Token {
     private String value;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     private LocalDateTime createdAt;
@@ -30,5 +29,15 @@ public class Token {
 
     public boolean isNotExpired() {
         return LocalDateTime.now().isBefore(expiredDateTime);
+    }
+
+    @Override
+    public String toString() {
+        return "Token{" +
+                "id=" + id +
+                ", value='" + value + '\'' +
+                ", createdAt=" + createdAt +
+                ", expiredDateTime=" + expiredDateTime +
+                '}';
     }
 }

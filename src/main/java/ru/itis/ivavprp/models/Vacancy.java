@@ -1,9 +1,12 @@
 package ru.itis.ivavprp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import ru.itis.ivavprp.dto.EmploymentType;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.dto.WorkSchedule;
@@ -40,10 +43,15 @@ public class Vacancy {
     @Transient
     private String workScheduleToShow;
     @ManyToMany
+    @Fetch(FetchMode.SELECT)
     @JoinTable(schema = "ivavprp", name = "skills_vacancies",
             joinColumns = @JoinColumn(name = "vacancy_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private Company company;
 
     public static Vacancy fromVacancyDto(VacancyDto vacancyDto) {
         return Vacancy.builder()
@@ -67,6 +75,7 @@ public class Vacancy {
                 .name(vacancy.getName())
                 .text(vacancy.getText())
                 .maxSalary(vacancy.getMaxSalary())
+                .company(vacancy.getCompany())
                 .minSalary(vacancy.getMinSalary())
                 .workScheduleToShow(vacancy.getWorkScheduleToShow())
                 .emplTypeToShow(vacancy.getEmplTypeToShow())
@@ -82,5 +91,22 @@ public class Vacancy {
     private void fillValuesToShow() {
         emplTypeToShow = employmentType.getValueToShow();
         workScheduleToShow = workSchedule.getValueToShow();
+    }
+
+    @Override
+    public String toString() {
+        return "Vacancy{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", employmentType=" + employmentType +
+                ", emplTypeToShow='" + emplTypeToShow + '\'' +
+                ", minSalary=" + minSalary +
+                ", maxSalary=" + maxSalary +
+                ", text='" + text + '\'' +
+                ", time=" + time +
+                ", workSchedule=" + workSchedule +
+                ", workScheduleToShow='" + workScheduleToShow + '\'' +
+                ", skills=" + skills +
+                '}';
     }
 }

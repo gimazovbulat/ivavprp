@@ -16,11 +16,14 @@ public enum WorkSchedule {
         this.valueToShow = valueToShow;
     }
 
-    @Override
-    public String toString() {
-        return "WorkSchedule{" +
-                "value='" + value + '\'' +
-                ", valueToShow='" + valueToShow + '\'' +
-                '}';
+    public static WorkSchedule getWorkSchedule(String name) {
+        WorkSchedule[] values = WorkSchedule.values();
+        for (WorkSchedule empl : values) {
+            if (empl.getValue().equals(name)) {
+                return empl;
+            }
+        }
+        throw new IllegalStateException();
     }
+
 }

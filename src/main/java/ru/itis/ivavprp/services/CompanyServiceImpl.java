@@ -3,12 +3,14 @@ package ru.itis.ivavprp.services;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.CompanyDto;
+import ru.itis.ivavprp.dto.CompanyInfoDto;
 import ru.itis.ivavprp.models.Company;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.repositories.CompanyRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class CompanyServiceImpl extends UserService implements CompanyService {
@@ -33,5 +35,43 @@ public class CompanyServiceImpl extends UserService implements CompanyService {
         company.setPassword(passwordEncoder.encode(companyDto.getPassword()));
         companyRepository.save(company);
         return true;
+    }
+
+    @Override
+    public CompanyDto saveInfo(Long id, CompanyInfoDto info) {
+        Optional<Company> optionalCompany = companyRepository.findById(id);
+
+        if (optionalCompany.isPresent()) {
+            Company company = optionalCompany.get();
+            company.setName(info.getName());
+            company.setAbout(info.getAbout());
+            company.setPhoto(info.getPhoto());
+            Company savedCompany = companyRepository.save(company);
+            return Company.toCompanyDto(savedCompany);
+        }
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public CompanyDto findCompanyById(Long id) {
+        Optional<Company> optionalCompany = companyRepository.findById(id);
+        if (optionalCompany.isPresent()) {
+            Company company = optionalCompany.get();
+            return Company.toCompanyDto(company);
+        }
+        throw new IllegalStateException(); //custom exception
+    }
+
+    @Override
+    public CompanyDto update(Long id, CompanyInfoDto info) {
+        Company company = companyRepository.getOne(id);
+        if (info.getAbout() != null){
+            company.setAbout(info.getAbout());
+        }
+        if (info.getName() != null){
+            company.setName(company.getName());
+        }
+        Company savedCompany = companyRepository.save(company);
+        return Company.toCompanyDto(savedCompany);
     }
 }

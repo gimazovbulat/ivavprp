@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.ivavprp.models.Company;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -24,5 +25,6 @@ public class VacancyDto {
     private int minSalary;
     private int maxSalary;
     private Month month;
+    private Company company;
     private int day;
 }
