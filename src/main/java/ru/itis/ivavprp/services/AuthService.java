@@ -7,5 +7,5 @@ import ru.itis.ivavprp.dto.TokenDto;
 public interface AuthService {
     TokenDto login(LoginDto loginData);
 
-    void logout(String auth);
+    void logout();
 }

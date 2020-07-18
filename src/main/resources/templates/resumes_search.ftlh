@@ -106,11 +106,11 @@
             let emplTypeVals = emplTypes.val()
             if (emplTypeVals !== undefined) {
                 if (emplTypeVals.length === 0) {
-                    url = url + "employmentTypes:" + "FULL_TIME"
+                    url = url + "employmentType:" + "FULL_TIME"
                     console.log(url)
                 } else {
                     let emplTypeValsJoined = emplTypeVals.join("'")
-                    url = url + "employmentTypes:" + emplTypeValsJoined
+                    url = url + "employmentType:" + emplTypeValsJoined
                     console.log(url)
                 }
             }
@@ -134,6 +134,7 @@
                 contentType: "application/json",
                 success:
                     function (response) {
+                    $('#results').html("")
                         for (let i = 0; i < response.length; i++) {
                             results.innerHTML += "<a href='/resumes/'" + response[i].id + ">" + response[i].name + '</a><br>';
                             results.innerHTML += response[i].text + '<br>';

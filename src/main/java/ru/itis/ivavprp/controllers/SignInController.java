@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.LoginDto;
 import ru.itis.ivavprp.dto.TokenDto;
 import ru.itis.ivavprp.security.authentication.TokenAuthentication;
@@ -31,4 +29,5 @@ public class SignInController {
     public ResponseEntity<TokenDto> login(@RequestBody LoginDto loginData) {
         return ResponseEntity.ok(service.login(loginData));
     }
+
 }

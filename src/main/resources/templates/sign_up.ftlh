@@ -32,7 +32,7 @@
             }
         }
         let body = '{"email": ' + '"' + email + '"' + ', "password": ' + '"' + +password + '"' + ', "role": ' + '"' + role + '"}';
-        request.open("POST", "http://localhost:8080/reg");
+        request.open("POST", "/reg");
         request.setRequestHeader('Content-Type', 'application/json');
         request.onreadystatechange = reqReadyStateChange;
         request.send(body);

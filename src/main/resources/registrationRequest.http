@@ -10,9 +10,9 @@ POST http://localhost:8080/reg
 Content-Type: application/json
 
 {
-  "email" : "sidikdfov.d111s@gmail.com",
+  "email": "11111sidikdfov.d111s@gmail.com",
   "password": "qwerty007",
-  "role" : "STUDENT"
+  "role": "TEACHER"
 }
 
 
@@ -22,16 +22,29 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "email" : "sidikdfov.d111s@gmail.com",
+  "email": "11111sidikdfov.d111s@gmail.com",
   "password": "qwerty007"
 }
 
 ###
 
 
-GET http://localhost:8080/user
-AUTH: 58e4c6c3-dc69-43d8-aad4-03bddbf95ac7
+GET http://localhost:8080/signOut
 
 
 ###
 
+GET http://localhost:8080/restApi/teachers/10
+
+###
+POST http://localhost:8080/teachers
+AUTH: 0aef7f6a-0f9d-4636-a1ff-8c846a404803
+Content-Type: application/json
+
+{
+ "firstName": "Михаил",
+  "lastName": "Абрамский",
+  "photo": null
+}
+
+###

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>profile_teacher</title>
+    <title>profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/profile_teach.css">
+    <link rel="stylesheet" href="../css/profile_stud.css">
 </head>
 <body>
 <header>
@@ -20,6 +20,46 @@
         <a class="btn btn-outline-info" href="#">Выход</a>
     </div>
 </header>
+
+<script type="text/javascript" language="javascript">
+
+
+    function logout() {
+        localStorage.removeItem("token")
+        if (localStorage.getItem("token") == null) {
+            let request = new XMLHttpRequest();
+            request.open("GET", "/signOut");
+            request.send();
+            location.replace("/login");
+        }
+    }
+</script>
+
+<script type="text/javascript" language="javascript">
+
+
+    window.onload = function () {
+        let token = localStorage.getItem("token");
+        if (token == null) {
+            logout()
+        }
+    }
+
+
+    function sendEditReq() {
+        let request = new XMLHttpRequest();
+
+        let name = document.getElementById("inputName").value;
+        let surname = document.getElementById("inputSurname").value;
+        let photo = null;
+        let body = '{"firstName": ' + '"' + name + '"' + ', "lastName": ' + '"' + surname + '" ' + ', "photo": '
+            + '"' + photo + '"' + '}';
+        request.open("POST", "http://localhost:8080/teachers");
+        request.setRequestHeader("AUTH", localStorage.getItem("token"))
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(body);
+    }
+</script>
 <main>
 
     <div class="container-fluid">
@@ -30,36 +70,40 @@
                         <img src="../img/avatar.png" class="img-fluid align-middle" alt="avatar">
                     </div>
                     <div class="col-4 col-sm-6 text-box">
-                        <h1>Имя Фамилия</h1>
-                        <h4 class="text-muted">Должность</h4>
-                        <p>Какая-то инфа о себе Какая-то инфа о себе Какая-то инфа о себе Какая-то инфа о себе Какая-то
-                            инфа о себе
-                            Какая-то инфа о себе Какая-то инфа о себе Какая-то инфа о себе Какая-то инфа о себе Какая-то
-                            инфа о себе Какая-то инфа о себе
-                            Какая-то инфа о себе Какая-то инфа о себе Какая-то инфа о себе Какая-то инфа о себе Какая-то
-                            инфа о себе Какая-то инфа о себе </p>
-                        <button type="submit" class="btn btn-info">Редактировать профиль</button>
+                        <form>
+                            <div class="form-group">
+                                <label for="InputName" class="mt-4">Имя</label>
+                                <input type="text" class="form-control" id="inputName" placeholder="Введите ваше имя">
+
+                                <label for="InputSurname" class="mt-4">Фамилия</label>
+                                <input type="text" class="form-control" id="inputSurname"
+                                       placeholder="Введите вашу фамилию">
+
+                            </div>
+
+                            <button type="button" onclick="sendEditReq()" class="btn btn-primary  mt-4">Submit</button>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>
-
-
-        </div>
-        </section>
+    </div>
+    </section>
     </div>
     <div class="row space">
-        
+
     </div>
 
 </main>
-<footer class="fixed-bottom">
+<footer>
     <div class="container-fluid">
         <div class="row footer justify-content-center">
             <h2>Футер</h2>
         </div>
     </div>
 </footer>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -45,7 +45,7 @@ public class Teacher extends User {
                 .build();
     }
 
-    public static TeacherDto toTeacherDto(Student student) {
+    public static TeacherDto toTeacherDto(Teacher student) {
         return TeacherDto.teacherDtoBuilder()
                 .id(student.getId())
                 .email(student.getEmail())

@@ -61,8 +61,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-    public void logout(String auth) {
-        tokensRepository.deleteTokenByValue(auth);
+    public void logout() {
         SecurityContextHolder.getContext().setAuthentication(null);
         return;
     }

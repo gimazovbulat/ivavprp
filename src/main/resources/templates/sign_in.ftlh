@@ -18,13 +18,13 @@
             if (this.readyState == 4 && this.status == 200) {
                 let slice = this.responseText.slice(10, 46)
                 localStorage.setItem("token", slice)
-                location.replace("http://localhost:8080/main")
+                location.replace("/main")
             }
         };
         let email = document.getElementById("inputEmail").value;
         let password = document.getElementById("inputPassword").value;
         let body = '{"email": ' + '"' + email + '"' + ', "password": ' + '"' + password + '"}'
-        request.open("POST", "http://localhost:8080/login");
+        request.open("POST", "/login");
         request.setRequestHeader('Content-Type', 'application/json');
         request.send(body);
 

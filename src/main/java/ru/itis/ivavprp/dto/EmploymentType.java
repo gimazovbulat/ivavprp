@@ -17,4 +17,14 @@ public enum EmploymentType {
         this.value = value;
         this.valueToShow = valueToShow;
     }
+
+    public static EmploymentType getEmploymentType(String name) {
+        EmploymentType[] values = EmploymentType.values();
+        for (EmploymentType empl : values) {
+            if (empl.getValue().equals(name)) {
+                return empl;
+            }
+        }
+        throw new IllegalStateException();
+    }
 }
