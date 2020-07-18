@@ -16,9 +16,9 @@
         localStorage.removeItem("token")
         if (localStorage.getItem("token") == null) {
             let request = new XMLHttpRequest();
-            request.open("GET", "http://localhost:8080/signOut");
+            request.open("GET", "/signOut");
             request.send();
-            location.replace("http://localhost:8080/login");
+            location.replace("/login");
         }
     }
 </script>
@@ -74,7 +74,7 @@
             logout()
         }
         let request = new XMLHttpRequest();
-        let id = document.location.pathname.slice(8);
+        let id = document.location.pathname.slice(10);
 
 
         request.onreadystatechange = function () {
@@ -85,7 +85,7 @@
             }
         };
 
-        request.open("GET", "http://localhost:8080/restApi/teachers/" + id);
+        request.open("GET", "/restApi/teachers/" + id);
         request.setRequestHeader('AUTH', localStorage.getItem("token"));
         request.send();
     };

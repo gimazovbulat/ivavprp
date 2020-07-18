@@ -28,9 +28,9 @@
         localStorage.removeItem("token")
         if (localStorage.getItem("token") == null) {
             let request = new XMLHttpRequest();
-            request.open("GET", "http://localhost:8080/signOut");
+            request.open("GET", "/signOut");
             request.send();
-            location.replace("http://localhost:8080/login");
+            location.replace("/login");
         }
     }
 </script>
@@ -46,16 +46,8 @@
     }
 
 
-    function sendReq() {
+    function sendEditReq() {
         let request = new XMLHttpRequest();
-
-        request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                let slice = this.responseText.slice(10, 46);
-                localStorage.setItem("token", slice);
-                location.replace("http://localhost:8080/main")
-            }
-        };
 
         let name = document.getElementById("inputName").value;
         let surname = document.getElementById("inputSurname").value;
@@ -89,7 +81,7 @@
 
                             </div>
 
-                            <button type="button" onclick="sendReq()" class="btn btn-primary  mt-4">Submit</button>
+                            <button type="button" onclick="sendEditReq()" class="btn btn-primary  mt-4">Submit</button>
                         </form>
                     </div>
 
