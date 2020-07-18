@@ -15,7 +15,7 @@ public class ResumeVacancyServiceImpl implements ResumeVacancyService {
     public ResumeVacancyServiceImpl(ResumeVacancyRepository resumeVacancyRepository) {
         this.resumeVacancyRepository = resumeVacancyRepository;
     }
-/*
+
     @Override
     public List<ResumeVacancyDto> getAllByCompanyId(Long companyId) {
         return resumeVacancyRepository
@@ -24,7 +24,7 @@ public class ResumeVacancyServiceImpl implements ResumeVacancyService {
                 .map(ResumeVacancy::toResumeVacancyDto)
                 .collect(Collectors.toList());
     }
-*/
+
     @Override
     public List<ResumeVacancyDto> getAllByStudentId(Long studentId) {
         return resumeVacancyRepository

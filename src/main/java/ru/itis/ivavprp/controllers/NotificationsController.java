@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.itis.ivavprp.dto.ResumeVacancyDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.User;
+import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.ResumeVacancyService;
 import ru.itis.ivavprp.services.UserService;
 
@@ -23,25 +24,24 @@ public class NotificationsController {
     private final ResumeVacancyService resumeVacancyService;
 
 
-    public NotificationsController(ResumeVacancyService resumeVacancyService, UserService userService) {
+    public NotificationsController(ResumeVacancyService resumeVacancyService) {
         this.resumeVacancyService = resumeVacancyService;
-        this.userService = userService;
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasAuthority('STUDENT')")
     @GetMapping("/notif/stud")
     public ResponseEntity<List<ResumeVacancyDto>> showNotificationsForStudents(@CurrentUser UserDetails userDetails) {
         User user = (User) userDetails;
         return new ResponseEntity<>(resumeVacancyService.getAllByStudentId(user.getId()), HttpStatus.OK);
     }
 
-    /*
-    @PreAuthorize("hasRole('COMPANY')")
+
+    @PreAuthorize("hasAuthority('COMPANY')")
     @GetMapping("/notif/comp")
     public ResponseEntity<List<ResumeVacancyDto>> showNotificationsForCompanies(@CurrentUser UserDetails userDetails) {
         User user = (User) userDetails;
         return new ResponseEntity<>(resumeVacancyService.getAllByCompanyId(user.getId()), HttpStatus.OK);
     }
-     */
+
 
 }

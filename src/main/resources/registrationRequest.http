@@ -10,9 +10,9 @@ POST http://localhost:8080/reg
 Content-Type: application/json
 
 {
-  "email": "11111sidikdfov.d111s@gmail.com",
+  "email": "ozon@gmail.com",
   "password": "qwerty007",
-  "role": "TEACHER"
+  "role": "COMPANY"
 }
 
 
@@ -22,7 +22,7 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "email": "11111sidikdfov.d111s@gmail.com",
+  "email": "nastya@gmail.com",
   "password": "qwerty007"
 }
 
@@ -46,5 +46,10 @@ Content-Type: application/json
   "lastName": "Абрамский",
   "photo": null
 }
+
+###
+
+GET http://localhost:8080/notif/stud
+AUTH: c746bde3-2b0e-419b-83c3-cbfc37a8b66e
 
 ###

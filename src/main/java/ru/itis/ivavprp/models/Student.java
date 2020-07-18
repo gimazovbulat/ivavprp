@@ -23,8 +23,7 @@ public class Student extends User {
     private String photo;
     private Integer rating;
     private Integer course;
-    @OneToMany(mappedBy = "student")
-    private List<Resume> resumes;
+
 
     @Builder(builderMethodName = "studentBuilder")
     public Student(Long id, String email, String password, Boolean isActive, Set<Role> roles,
