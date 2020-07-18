@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.ivavprp.dto.StudentDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Set;
 
@@ -21,10 +23,8 @@ public class Student extends User {
     private String photo;
     private Integer rating;
     private Integer course;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    private Resume resume;
+    @OneToMany(mappedBy = "student")
+    private List<Resume> resumes;
 
     @Builder(builderMethodName = "studentBuilder")
     public Student(Long id, String email, String password, Boolean isActive, Set<Role> roles,
@@ -69,10 +69,3 @@ public class Student extends User {
                 .build();
     }
 }
-
-//
-//    public List<Resume> getResumes() { return resumes; }
-//
-//    public void setResumes(List<Resume> resumes) { this.resumes = resumes; }
-//}
-
