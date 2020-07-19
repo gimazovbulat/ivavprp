@@ -48,3 +48,6 @@ Content-Type: application/json
 }
 
 ###
+
+GET http://localhost:8080/students/profile
+AUTH: 0aef7f6a-0f9d-4636-a1ff-8c846a404803

@@ -22,20 +22,21 @@ public class Student extends User {
     private Integer rating;
     private Integer course;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
-    private Resume resume;
+    private List<Resume> resumes;
 
     @Builder(builderMethodName = "studentBuilder")
     public Student(Long id, String email, String password, Boolean isActive, Set<Role> roles,
                    String firstName, String lastName, String photo, Integer rating, Integer course,
-                   List<Token> tokens, Token currentToken) {
+                   List<Token> tokens, Token currentToken, List<Resume> resumes) {
         super(id, email, password, isActive, roles, tokens, currentToken);
         this.firstName = firstName;
         this.lastName = lastName;
         this.course = course;
         this.photo = photo;
         this.rating = rating;
+        this.resumes = resumes;
     }
 
 
@@ -51,6 +52,7 @@ public class Student extends User {
                 .course(studentDto.getCourse())
                 .rating(studentDto.getRating())
                 .photo(studentDto.getPhoto())
+                .resumes(studentDto.getResumes())
                 .build();
     }
 
@@ -66,6 +68,7 @@ public class Student extends User {
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
                 .photo(student.getPhoto())
+                .resumes(student.getResumes())
                 .build();
     }
 }
