@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import ru.itis.ivavprp.dto.EmploymentType;
 import ru.itis.ivavprp.dto.WorkSchedule;
 import ru.itis.ivavprp.models.Skill;
+import ru.itis.ivavprp.models.Student;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public class ResumeDto {
     private WorkSchedule workSchedule;
     private String workScheduleToShow;
     private String emplTypeToShow;
+    private Student student;
 }

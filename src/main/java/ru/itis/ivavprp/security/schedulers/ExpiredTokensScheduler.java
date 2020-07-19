@@ -21,7 +21,7 @@ public class ExpiredTokensScheduler {
     @Scheduled(cron = "*/10 * * * * *")
     @Transactional
     public void removeExpiredTokens() {
-        tokensRepository.deleteTokensByExpiredDateTimeBefore(LocalDateTime.now());
+//        tokensRepository.deleteTokensByExpiredDateTimeBefore(LocalDateTime.now());
     }
 
 }
