@@ -20,6 +20,7 @@ public class StudentDto extends UserDto {
     private Integer course;
     private Integer rating;
     private List<Resume> resumes;
+    private List<SkillDto> skills;
 
     @Builder(builderMethodName = "studentDtoBuilder")
     public StudentDto(Long id, String email, String password, Boolean isActive, Set<Role> roles,

@@ -21,6 +21,12 @@ public class Student extends User {
     private String photo;
     private Integer rating;
     private Integer course;
+    //can be confirmed and not
+    @ManyToMany
+    @JoinTable(schema = "ivavprp", name = "skills_students",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private List<Skill> allSkills;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
