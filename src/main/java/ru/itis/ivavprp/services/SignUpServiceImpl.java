@@ -9,11 +9,11 @@ import ru.itis.ivavprp.dto.TeacherDto;
 @Service
 public class SignUpServiceImpl implements SignUpService {
 
-    private final CompanyService companyService;
+    private final CompaniesService companyService;
     private final StudentService studentService;
     private final TeacherService teacherService;
 
-    public SignUpServiceImpl(CompanyService companyService, StudentService studentService, TeacherService teacherService) {
+    public SignUpServiceImpl(CompaniesService companyService, StudentService studentService, TeacherService teacherService) {
         this.companyService = companyService;
         this.studentService = studentService;
         this.teacherService = teacherService;

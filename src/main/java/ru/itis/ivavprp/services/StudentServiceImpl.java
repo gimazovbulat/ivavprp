@@ -4,14 +4,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.repositories.StudentRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,9 +33,8 @@ public class StudentServiceImpl extends UserService implements StudentService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public boolean save(StudentDto studentDto) {
-
-
         if (userRepository.findByEmail(studentDto.getEmail()).isPresent()) {
             return false;
         }
@@ -51,5 +53,14 @@ public class StudentServiceImpl extends UserService implements StudentService {
         return studentRepository.findAll(spec, PageRequest.of(page, size)).stream()
                 .map(Student::toStudentDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentDto findOne(Long id) {
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if (optionalStudent.isPresent()) {
+            return Student.toStudentDto(optionalStudent.get());
+        }
+        throw new EntityNotFoundException();
     }
 }
