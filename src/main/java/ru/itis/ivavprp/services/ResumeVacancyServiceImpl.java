@@ -3,6 +3,7 @@ package ru.itis.ivavprp.services;
 import org.springframework.stereotype.Component;
 import ru.itis.ivavprp.dto.ResumeVacancyDto;
 import ru.itis.ivavprp.models.ResumeVacancy;
+import ru.itis.ivavprp.models.Status;
 import ru.itis.ivavprp.repositories.ResumeVacancyRepository;
 
 import java.util.List;
@@ -32,5 +33,17 @@ public class ResumeVacancyServiceImpl implements ResumeVacancyService {
                 .stream()
                 .map(ResumeVacancy::toResumeVacancyDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void changeStatus(Long id, Status status) {
+        ResumeVacancy resumeVacancy = resumeVacancyRepository.getOne(id);
+        resumeVacancy.setStatus(status);
+        resumeVacancyRepository.save(resumeVacancy);
+    }
+
+    @Override
+    public void save(ResumeVacancyDto resumeVacancyDto) {
+        resumeVacancyRepository.save(ResumeVacancy.fromResumeVacancyDto(resumeVacancyDto));
     }
 }

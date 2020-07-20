@@ -87,6 +87,8 @@ header{
 footer{
     margin-top: 50px;
     background-color: black;
+    height: 500px;
+
 }
 
 .list{

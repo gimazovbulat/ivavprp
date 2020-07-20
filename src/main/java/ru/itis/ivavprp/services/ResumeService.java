@@ -12,4 +12,6 @@ public interface ResumeService {
 
     List<ResumeDto> findAllBySkills(List<SkillDto> skills);
 
+    ResumeDto findById(Long id);
+
 }
