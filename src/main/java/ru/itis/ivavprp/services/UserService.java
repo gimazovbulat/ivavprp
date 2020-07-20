@@ -7,13 +7,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.UserDto;
-import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Token;
 import ru.itis.ivavprp.models.User;
 import ru.itis.ivavprp.repositories.TokensRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
 
-import java.util.*;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {

@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.ivavprp.dto.TeacherDto;
 import ru.itis.ivavprp.dto.TeacherInfoDto;
 import ru.itis.ivavprp.models.Teacher;
 import ru.itis.ivavprp.security.CurrentUser;
@@ -33,7 +32,7 @@ public class TeacherController {
     @PostMapping("/teachers")
     public ResponseEntity<TeacherInfoDto> update(@RequestBody TeacherInfoDto info, @CurrentUser UserDetails userDetails) {
         Teacher teacher = (Teacher) userDetails;
-        TeacherInfoDto updatedTeacher = teacherService.update(teacher.getId(), info);
+        TeacherInfoDto updatedTeacher = teacherService.updateInfo(teacher.getId(), info);
         return ResponseEntity.ok(updatedTeacher);
     }
 

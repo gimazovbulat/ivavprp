@@ -4,13 +4,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.TeacherDto;
 import ru.itis.ivavprp.dto.TeacherInfoDto;
+import ru.itis.ivavprp.dto.TeacherStatusDto;
 import ru.itis.ivavprp.models.Role;
+import ru.itis.ivavprp.models.Skill;
 import ru.itis.ivavprp.models.Teacher;
 import ru.itis.ivavprp.models.User;
 import ru.itis.ivavprp.repositories.TeacherRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherServiceImpl extends UserService implements TeacherService {
@@ -52,7 +56,7 @@ public class TeacherServiceImpl extends UserService implements TeacherService {
 
 
     @Override
-    public TeacherInfoDto update(Long id, TeacherInfoDto info) {
+    public TeacherInfoDto updateInfo(Long id, TeacherInfoDto info) {
         Teacher teacher = teacherRepository.getOne(id);
         if (info.getFirstName() != null) {
             teacher.setFirstName(info.getFirstName());
@@ -68,5 +72,22 @@ public class TeacherServiceImpl extends UserService implements TeacherService {
                 .photo(savedTeacher.getPhoto())
                 .build();
         return dto;
+    }
+
+    @Override
+    public List<TeacherDto> getAll() {
+        return teacherRepository.findAll().stream().map(Teacher::toTeacherDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public void remove(Long id) {
+        teacherRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateStatus(TeacherStatusDto teacherStatusDto) {
+        Teacher teacher = teacherRepository.getOne(teacherStatusDto.getId());
+        teacher.setIsActive(teacherStatusDto.isActive());
+        teacherRepository.save(teacher);
     }
 }
