@@ -24,7 +24,7 @@ public class TeacherController {
 
     @GetMapping("/restApi/teachers/{id}")
     public ResponseEntity<TeacherInfoDto> get(@PathVariable("id") Long id) {
-        System.out.println("qq");
+
         return ResponseEntity.ok(teacherService.findTeacherById(id));
     }
 
@@ -32,7 +32,7 @@ public class TeacherController {
     @PostMapping("/teachers")
     public ResponseEntity<TeacherInfoDto> update(@RequestBody TeacherInfoDto info, @CurrentUser UserDetails userDetails) {
         Teacher teacher = (Teacher) userDetails;
-        TeacherInfoDto updatedTeacher = teacherService.updateInfo(teacher.getId(), info);
+        TeacherInfoDto updatedTeacher = teacherService.update(teacher.getId(), info);
         return ResponseEntity.ok(updatedTeacher);
     }
 

@@ -53,7 +53,8 @@ public class VacanciesController {
 
     @PreAuthorize("hasAuthority('COMPANY')")
     @PutMapping("/vacancies/{id}/skills")
-    public ResponseEntity<VacancyDto> addOrRemoveSkills(@PathVariable("id") Long vacId, @RequestBody AddOrRemoveSkills addOrRemoveSkills,
+    public ResponseEntity<VacancyDto> addOrRemoveSkills(@PathVariable("id") Long vacId,
+                                                        @RequestBody AddOrRemoveSkills addOrRemoveSkills,
                                                         @CurrentUser UserDetails userDetails) {
         VacancyDto vacancy = vacanciesService.getOneById(vacId);
         VacancyDto vacancyToUpdate;

@@ -1,17 +1,20 @@
 package ru.itis.ivavprp.services;
 
-import ru.itis.ivavprp.dto.*;
-import ru.itis.ivavprp.models.Teacher;
+import ru.itis.ivavprp.dto.SkillDto;
+import ru.itis.ivavprp.dto.TeacherDto;
+import ru.itis.ivavprp.dto.TeacherInfoDto;
+import ru.itis.ivavprp.dto.TeacherStatusDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TeacherService {
     boolean save(TeacherDto teacherDto);
 
     TeacherInfoDto findTeacherById(Long id);
 
-    TeacherInfoDto updateInfo(Long id, TeacherInfoDto info);
+    TeacherInfoDto update(Long id, TeacherInfoDto info);
+
+    List<SkillDto> confirmSkills(TeacherDto teacherDto, Long studentId, List<Long> skillsIds);
 
     List<TeacherDto> getAll();
 
