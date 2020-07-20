@@ -35,13 +35,13 @@ public class SkillsController {
         return ResponseEntity.ok(skills);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/skills/{id}")
     public void deleteSkill(@PathVariable("id") Long id) {
         skillsService.remove(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/skills")
     public ResponseEntity<SkillDto> update(@RequestBody SkillDto skill) {
         SkillDto updatedSkill = skillsService.update(skill);

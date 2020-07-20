@@ -14,4 +14,5 @@ public class SkillDto {
     private String name;
     private int points;
     private String nameToShow;
+    private boolean confirmed;
 }

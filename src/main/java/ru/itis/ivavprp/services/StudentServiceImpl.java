@@ -6,9 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.StudentDto;
+import ru.itis.ivavprp.models.Resume;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Skill;
 import ru.itis.ivavprp.models.Student;
+import ru.itis.ivavprp.repositories.ResumesRepository;
 import ru.itis.ivavprp.repositories.SkillsRepository;
 import ru.itis.ivavprp.repositories.StudentRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
@@ -21,27 +23,27 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl extends UserService implements StudentService {
-
     private final StudentRepository studentRepository;
     private final SkillsRepository skillsRepository;
     private final UserRepository userRepository;
+    private final ResumesRepository resumesRepository;
 
 
     public StudentServiceImpl(StudentRepository studentRepository,
                               SkillsRepository skillsRepository,
                               UserRepository userRepository,
+                              ResumesRepository resumesRepository,
                               PasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
         this.skillsRepository = skillsRepository;
         this.userRepository = userRepository;
+        this.resumesRepository = resumesRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     private final PasswordEncoder passwordEncoder;
 
     public boolean save(StudentDto studentDto) {
-
-
         if (userRepository.findByEmail(studentDto.getEmail()).isPresent()) {
             return false;
         }
@@ -98,5 +100,48 @@ public class StudentServiceImpl extends UserService implements StudentService {
             return oldSkills.stream().map(Skill::toSkillDto).collect(Collectors.toList());
         }
         throw new EntityNotFoundException();
+    }
+
+    @Override
+    public List<SkillDto> addSkillsToResume(Long studentId, Long resumeId, List<Long> skillIds) {
+        return addOrRemoveResumeSkills(studentId, resumeId, skillIds, 1);
+    }
+
+    @Override
+    public List<SkillDto> removeSkillsToResume(Long studentId, Long resumeId, List<Long> skillIds) {
+        return addOrRemoveResumeSkills(studentId, resumeId, skillIds, 0);
+    }
+
+    @Override
+    public StudentDto findStudentById(Long id) {
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if (optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            List<Skill> allSkills = student.getAllSkills();
+            for (Skill skill : allSkills){
+                boolean confirmed = skillsRepository.isConfirmed(id, skill.getId());
+                skill.setConfirmed(confirmed);
+            }
+            return Student.toStudentDto(student);
+        }
+        throw new EntityNotFoundException();
+    }
+
+    private List<SkillDto> addOrRemoveResumeSkills(Long studentId, Long resumeId, List<Long> skillIds, int action) {
+        Resume resume = resumesRepository.getOne(resumeId);
+        List<Skill> skillsInResume = resume.getSkills();
+        for (Long id : skillIds) {
+            boolean confirmed = skillsRepository.isConfirmed(studentId, id);
+            if (confirmed) {
+                Skill skill = skillsRepository.getOne(id);
+                if (action == 1) {
+                    skillsInResume.add(skill);
+                } else {
+                    skillsInResume.remove(skill);
+                }
+            }
+        }
+        resumesRepository.save(resume);
+        return skillsInResume.stream().map(Skill::toSkillDto).collect(Collectors.toList());
     }
 }

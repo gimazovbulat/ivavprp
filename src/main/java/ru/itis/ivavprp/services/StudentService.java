@@ -15,4 +15,10 @@ public interface StudentService {
     List<SkillDto> addSkills(StudentDto studentDto, List<Long> skillIds);
 
     List<SkillDto> removeSkills(StudentDto studentDto, List<Long> skillIds);
+
+    List<SkillDto> addSkillsToResume(Long studentId, Long resumeId, List<Long> skillIds);
+
+    List<SkillDto> removeSkillsToResume(Long studentId, Long resumeId, List<Long> skillIds);
+
+    StudentDto findStudentById(Long id);
 }

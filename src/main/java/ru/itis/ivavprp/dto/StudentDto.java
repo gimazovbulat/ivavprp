@@ -24,9 +24,10 @@ public class StudentDto extends UserDto {
 
     @Builder(builderMethodName = "studentDtoBuilder")
     public StudentDto(Long id, String email, String password, Boolean isActive, Set<Role> roles,
-                      String firstName, String lastName, String photo, Integer rating, Integer course, List<Resume> resumes) {
+                      String firstName, String lastName, String photo, Integer rating, Integer course, List<Resume> resumes, List<SkillDto> skills) {
         super(id, email, password, isActive, roles);
         this.firstName = firstName;
+        this.skills = skills;
         this.lastName = lastName;
         this.course = course;
         this.photo = photo;
