@@ -33,4 +33,9 @@ public class ResumeServiceImpl implements ResumeService {
         return resumesRepository.findAllBySkillsIn(skills).stream().map(Resume::toResumeDto).collect(Collectors.toList());
 
     }
+
+    @Override
+    public ResumeDto findById(Long id) {
+        return Resume.toResumeDto(resumesRepository.getOne(id));
+    }
 }

@@ -5,11 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.ResumeVacancyDto;
 import ru.itis.ivavprp.dto.VacancyDto;
+import ru.itis.ivavprp.models.Status;
 import ru.itis.ivavprp.models.User;
 import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.ResumeVacancyService;
@@ -41,6 +40,13 @@ public class NotificationsController {
     public ResponseEntity<List<ResumeVacancyDto>> showNotificationsForCompanies(@CurrentUser UserDetails userDetails) {
         User user = (User) userDetails;
         return new ResponseEntity<>(resumeVacancyService.getAllByCompanyId(user.getId()), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('COMPANY')")
+    @PostMapping("/notif/comp/{id}/{status}")
+    public ResponseEntity<?> changeStatus(@PathVariable Long id, @PathVariable String status){
+        resumeVacancyService.changeStatus(id, Status.valueOf(status));
+        return ResponseEntity.accepted().build();
     }
 
 
