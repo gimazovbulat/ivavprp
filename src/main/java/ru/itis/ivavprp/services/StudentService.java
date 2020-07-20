@@ -10,4 +10,6 @@ public interface StudentService {
     boolean save(StudentDto studentDto);
 
     List<StudentDto> findAll(Specification<Student> spec, int page, int size);
+
+    StudentDto findOne(Long id);
 }

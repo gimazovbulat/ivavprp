@@ -24,9 +24,6 @@ public class Skill {
     private int points;
     @ManyToMany(mappedBy = "skills")
     private List<Achievement> achievements;
-    @ManyToMany(mappedBy = "skills")
-    @JsonIgnore
-    private List<Vacancy> vacancies;
 
     public static Skill fromSkillDto(SkillDto skillDto) {
         return Skill.builder()

@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import ru.itis.ivavprp.dto.CompanyDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,7 +22,6 @@ public class Company extends User {
     private String name;
     private String photo;
     private String about;
-    @Fetch(FetchMode.SELECT)
     @OneToMany(mappedBy = "company")
     private List<Vacancy> vacancies;
 
@@ -79,7 +78,6 @@ public class Company extends User {
                 "name='" + name + '\'' +
                 ", photo='" + photo + '\'' +
                 ", about='" + about + '\'' +
-                ", vacancies=" + vacancies +
                 '}';
     }
 }

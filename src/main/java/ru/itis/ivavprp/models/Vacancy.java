@@ -42,8 +42,8 @@ public class Vacancy {
     private WorkSchedule workSchedule;
     @Transient
     private String workScheduleToShow;
+    @Fetch(value = FetchMode.SUBSELECT)
     @ManyToMany
-    @Fetch(FetchMode.SELECT)
     @JoinTable(schema = "ivavprp", name = "skills_vacancies",
             joinColumns = @JoinColumn(name = "vacancy_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
@@ -75,7 +75,6 @@ public class Vacancy {
                 .name(vacancy.getName())
                 .text(vacancy.getText())
                 .maxSalary(vacancy.getMaxSalary())
-                .company(vacancy.getCompany())
                 .minSalary(vacancy.getMinSalary())
                 .workScheduleToShow(vacancy.getWorkScheduleToShow())
                 .emplTypeToShow(vacancy.getEmplTypeToShow())
