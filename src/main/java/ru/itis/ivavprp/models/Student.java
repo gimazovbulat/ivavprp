@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.ivavprp.dto.StudentDto;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -24,17 +22,21 @@ public class Student extends User {
     private Integer rating;
     private Integer course;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")
+    private List<Resume> resumes;
 
     @Builder(builderMethodName = "studentBuilder")
     public Student(Long id, String email, String password, Boolean isActive, Set<Role> roles,
                    String firstName, String lastName, String photo, Integer rating, Integer course,
-                   List<Token> tokens, Token currentToken) {
+                   List<Token> tokens, Token currentToken, List<Resume> resumes) {
         super(id, email, password, isActive, roles, tokens, currentToken);
         this.firstName = firstName;
         this.lastName = lastName;
         this.course = course;
         this.photo = photo;
         this.rating = rating;
+        this.resumes = resumes;
     }
 
 
@@ -50,6 +52,7 @@ public class Student extends User {
                 .course(studentDto.getCourse())
                 .rating(studentDto.getRating())
                 .photo(studentDto.getPhoto())
+                .resumes(studentDto.getResumes())
                 .build();
     }
 
@@ -65,6 +68,14 @@ public class Student extends User {
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
                 .photo(student.getPhoto())
+                .resumes(student.getResumes())
                 .build();
     }
 }
+
+//
+//    public List<Resume> getResumes() { return resumes; }
+//
+//    public void setResumes(List<Resume> resumes) { this.resumes = resumes; }
+//}
+
