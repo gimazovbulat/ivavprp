@@ -22,7 +22,7 @@ public class Student extends User {
     private Integer rating;
     private Integer course;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private List<Resume> resumes;
 
