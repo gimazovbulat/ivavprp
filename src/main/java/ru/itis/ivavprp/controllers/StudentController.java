@@ -5,10 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.itis.ivavprp.dto.SkillDto;
+import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.search.SearchService;
@@ -16,6 +15,7 @@ import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.StudentService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class StudentController {
@@ -23,7 +23,9 @@ public class StudentController {
     private final StudentService studentService;
     private final UserDetailsService userDetailsService;
 
-    public StudentController(SearchService searchService, StudentService studentService1, @Qualifier("userService") UserDetailsService userDetailsService) {
+    public StudentController(SearchService searchService,
+                             StudentService studentService1,
+                             @Qualifier("userService") UserDetailsService userDetailsService) {
         this.searchService = searchService;
         this.studentService = studentService1;
         this.userDetailsService = userDetailsService;
@@ -41,8 +43,73 @@ public class StudentController {
     @GetMapping("/students/profile")
     @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<String> getProfilePage(@CurrentUser UserDetails userDetails) {
-
-        Student student = (Student) userDetails;
+        Student secStudent = (Student) userDetails;
+        StudentDto student = studentService.findStudentById(secStudent.getId());
         return ResponseEntity.ok(student.toString());
+    }
+
+    @GetMapping("/students/{id}/skills")
+    public ResponseEntity<List<SkillDto>> getSkills(@PathVariable("id") Long id,
+                                                    @RequestParam(required = false) Boolean confirmed) {
+        StudentDto student = studentService.findStudentById(id);
+        if (confirmed == null) {
+            return ResponseEntity.ok(student.getSkills());
+        } else if (!confirmed) {
+            return ResponseEntity.ok(student.getSkills().stream()
+                    .filter(skill -> !skill.isConfirmed()).
+                            collect(Collectors.toList()));
+        } else {
+            return ResponseEntity.ok(student.getSkills().stream()
+                    .filter(SkillDto::isConfirmed).
+                            collect(Collectors.toList()));
+        }
+    }
+
+    @PreAuthorize("hasAuthority('STUDENT')")
+    @PutMapping("/students/{id}/skills")
+    public ResponseEntity<List<SkillDto>> addSkills(@PathVariable("id") Long id,
+                                                    @RequestBody List<Long> skillsIds,
+                                                    @CurrentUser UserDetails userDetails) {
+        System.out.println(skillsIds);
+        Student student = (Student) userDetails;
+        if (student.getId().equals(id)) {
+            List<SkillDto> savedSkills = studentService.addSkills(Student.toStudentDto(student), skillsIds);
+            return ResponseEntity.ok(savedSkills);
+        }
+        throw new IllegalStateException();
+    }
+
+    @PreAuthorize("hasAuthority('STUDENT')")
+    @DeleteMapping("/students/{id}/skills")
+    public ResponseEntity<List<SkillDto>> removeSkills(@PathVariable("id") Long id,
+                                                       @RequestBody List<Long> skillsIds,
+                                                       @CurrentUser UserDetails userDetails) {
+        Student student = (Student) userDetails;
+        if (student.getId().equals(id)) {
+            List<SkillDto> savedSkills = studentService.removeSkills(Student.toStudentDto(student), skillsIds);
+            return ResponseEntity.ok(savedSkills);
+        }
+        throw new IllegalStateException();
+    }
+
+    @PreAuthorize("hasAuthority('STUDENT')")
+    @PutMapping("/resumes/{id}/skills")
+    public ResponseEntity<List<SkillDto>> addSkillsToResume(@PathVariable("id") Long resumeId,
+                                                            @RequestBody List<Long> skillIds,
+                                                            @CurrentUser UserDetails userDetails) {
+        Student student = (Student) userDetails;
+        List<SkillDto> addedSkills = studentService.addSkillsToResume(student.getId(), resumeId, skillIds);
+        return ResponseEntity.ok(addedSkills);
+    }
+
+
+    @PreAuthorize("hasAuthority('STUDENT')")
+    @DeleteMapping("/resumes/{id}/skills")
+    public ResponseEntity<List<SkillDto>> removeSkillsToResume(@PathVariable("id") Long resumeId,
+                                                               @RequestBody List<Long> skillIds,
+                                                               @CurrentUser UserDetails userDetails) {
+        Student student = (Student) userDetails;
+        List<SkillDto> addedSkills = studentService.removeSkillsToResume(student.getId(), resumeId, skillIds);
+        return ResponseEntity.ok(addedSkills);
     }
 }
