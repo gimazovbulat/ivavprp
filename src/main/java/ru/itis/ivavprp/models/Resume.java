@@ -1,11 +1,14 @@
 package ru.itis.ivavprp.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.itis.ivavprp.dto.EmploymentType;
 import ru.itis.ivavprp.dto.ResumeDto;
 import ru.itis.ivavprp.dto.WorkSchedule;
+import ru.itis.ivavprp.models.Skill;
+import ru.itis.ivavprp.models.Student;
 
 import javax.persistence.*;
 import java.util.List;
@@ -38,8 +41,7 @@ public class Resume {
     @Transient
     private String emplTypeToShow;
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     public static Resume fromResumeDto(ResumeDto resumeDto) {
@@ -65,25 +67,7 @@ public class Resume {
                 .skills(resume.getSkills())
                 .text(resume.getText())
                 .workScheduleToShow(resume.getWorkScheduleToShow())
-                .student(resume.getStudent())
-                .studentId(resume.getStudent().getId())
-                .studentFirstName(resume.getStudent().getFirstName())
-                .studentLastName(resume.getStudent().getLastName())
                 .build();
-    }
-
-    @Override
-    public String toString() {
-        return "Resume{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", skills=" + skills +
-                ", text='" + text + '\'' +
-                ", employmentType=" + employmentType +
-                ", workSchedule=" + workSchedule +
-                ", workScheduleToShow='" + workScheduleToShow + '\'' +
-                ", emplTypeToShow='" + emplTypeToShow + '\'' +
-                '}';
     }
 
     @PostLoad

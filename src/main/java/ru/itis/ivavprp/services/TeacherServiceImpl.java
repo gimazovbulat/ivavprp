@@ -105,7 +105,7 @@ public class TeacherServiceImpl extends UserService implements TeacherService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void delete(Long id) {
         teacherRepository.deleteById(id);
     }
 

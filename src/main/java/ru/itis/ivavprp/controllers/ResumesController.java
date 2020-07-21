@@ -1,9 +1,13 @@
 package ru.itis.ivavprp.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.ResumeDto;
-import ru.itis.ivavprp.dto.VacancyDto;
+import ru.itis.ivavprp.dto.ResumeForm;
+import ru.itis.ivavprp.models.Student;
+import ru.itis.ivavprp.models.User;
 import ru.itis.ivavprp.search.SearchService;
+import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.ResumeService;
 
 import java.util.List;
@@ -28,10 +32,20 @@ public class ResumesController {
         return (List<ResumeDto>) results;
     }
 
-    @GetMapping("/resume/{id}")
+    @GetMapping("/restApi/resume/{id}")
     @ResponseBody
-    public ResumeDto findById(@PathVariable Long id) {
-        ResumeDto resumeDto = resumeService.findById(id);
-        return resumeDto;
+    public ResponseEntity<ResumeDto> get(@PathVariable long id) {
+        return ResponseEntity.ok(resumeService.findById(id));
     }
+
+    @PostMapping("/restApi/resume")
+    public void save(@RequestBody ResumeForm resumeForm, @CurrentUser User user) {
+        resumeService.save(resumeForm, (Student) user);
+    }
+
+    @DeleteMapping("/restApi/resume/{id}")
+    public void delete(@PathVariable Long id) {
+        resumeService.delete(id);
+    }
+
 }
