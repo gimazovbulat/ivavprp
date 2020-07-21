@@ -11,4 +11,5 @@ public interface StudentService {
 
     List<StudentDto> findAll(Specification<Student> spec, int page, int size);
     StudentDto findStudentById(Long id);
+    StudentDto update(Long id, StudentDto studentDto );
 }

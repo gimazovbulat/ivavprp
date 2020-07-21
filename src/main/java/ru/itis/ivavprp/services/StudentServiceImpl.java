@@ -9,6 +9,7 @@ import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.models.Company;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Student;
+import ru.itis.ivavprp.models.Teacher;
 import ru.itis.ivavprp.repositories.StudentRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
 
@@ -64,5 +65,19 @@ public class StudentServiceImpl extends UserService implements StudentService {
             return Student.toStudentDto(student);
         }
         throw new IllegalStateException(); //custom exception
+    }
+
+    @Override
+    public StudentDto update(Long id, StudentDto info) {
+        Student student = studentRepository.getOne(id);
+        if (info.getFirstName() != null) {
+            student.setFirstName(info.getFirstName());
+        }
+        if (info.getLastName() != null) {
+            student.setLastName(info.getLastName());
+        }
+        Student savedStudent = studentRepository.save(student);
+        StudentDto dto = Student.toStudentDto(savedStudent);
+        return dto;
     }
 }
