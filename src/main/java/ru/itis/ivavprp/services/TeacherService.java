@@ -18,7 +18,7 @@ public interface TeacherService {
 
     List<TeacherDto> getAll();
 
-    void remove(Long id);
+    void delete(Long id);
 
     void updateStatus(TeacherStatusDto teacherDto);
 }

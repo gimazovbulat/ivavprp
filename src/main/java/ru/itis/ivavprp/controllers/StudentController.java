@@ -10,6 +10,7 @@ import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.Student;
+import ru.itis.ivavprp.models.User;
 import ru.itis.ivavprp.search.SearchService;
 import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.StudentService;
@@ -52,6 +53,23 @@ public class StudentController {
     public ResponseEntity<List<SkillDto>> getSkills(@PathVariable("id") Long id,
                                                     @RequestParam(required = false) Boolean confirmed) {
         StudentDto student = studentService.findStudentById(id);
+        if (confirmed == null) {
+            return ResponseEntity.ok(student.getSkills());
+        } else if (!confirmed) {
+            return ResponseEntity.ok(student.getSkills().stream()
+                    .filter(skill -> !skill.isConfirmed()).
+                            collect(Collectors.toList()));
+        } else {
+            return ResponseEntity.ok(student.getSkills().stream()
+                    .filter(SkillDto::isConfirmed).
+                            collect(Collectors.toList()));
+        }
+    }
+
+    @GetMapping("/students/skills")
+    public ResponseEntity<List<SkillDto>> getCurrentStudentSkills(@CurrentUser User user,
+                                                                  @RequestParam(required = false) Boolean confirmed) {
+        StudentDto student = studentService.findStudentById(user.getId());
         if (confirmed == null) {
             return ResponseEntity.ok(student.getSkills());
         } else if (!confirmed) {

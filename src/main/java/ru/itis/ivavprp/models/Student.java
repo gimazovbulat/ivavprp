@@ -29,8 +29,7 @@ public class Student extends User {
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> allSkills;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<Resume> resumes;
 
     @Builder(builderMethodName = "studentBuilder")
