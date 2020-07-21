@@ -11,7 +11,7 @@
     padding-left: 30px;">search</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../static/css/search.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
@@ -135,7 +135,8 @@
             console.log(url)
             let resName = document.getElementById('resName')
             let resHref = document.getElementById('resHref')
-            let results = document.getElementById('results')
+            let text = document.getElementById('text')
+            let empl_sch = document.getElementById('empl_sch');
             $.ajax({
                 url: url,
                 method: "GET",
@@ -143,15 +144,11 @@
                 contentType: "application/json",
                 success:
                     function (response) {
-                        $('#results').html("")
                         for (let i = 0; i < response.length; i++) {
                             resName.innerHTML = response[i].name
-                            resHref.
-                            results.innerHTML += "<a href='/resumes/'" + response[i].id + ">" + response[i].name + '</a><br>';
-                            results.innerHTML += response[i].text + '<br>';
-                            results.innerHTML += response[i].workScheduleToShow + '<br>';
-                            results.innerHTML += response[i].emplTypeToShow + '<br>';
-                            results.innerHTML += '<br>';
+                            resHref.setAttribute("href", '/resumes_page/' + response[i].id);
+                            text.innerHTML = response[i].text;
+                            empl_sch.innerHTML = response[i].workScheduleToShow + " " + response[i].emplTypeToShow;
                         }
                     }
             })
@@ -194,17 +191,14 @@
         <div class="row offset-1 mt-5 mb-4">
             <h2>Резюме по запросу </h2>
         </div>
-
         <div class="row justify-content-center carousel">
             <div class="list-group col-md-10" id="results">
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="resHref">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1" id="resName"></h5>
-                        <small>3 days ago</small>
                     </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                        varius blandit.</p>
-                    <small>Donec id elit non mi porta.</small>
+                    <p class="mb-1" id="text"></p>
+                    <small id="empl_sch"></small>
                 </a>
             </div>
         </div>

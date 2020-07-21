@@ -55,7 +55,7 @@
             })
         }
 
-        function pagesAmount() {
+        /*function pagesAmount() {
             $.ajax({
                 url: "/",
                 method: "GET",
@@ -68,7 +68,7 @@
                         }
                     }
             })
-        }
+        }*/
     </script>
 </head>
 <body>
