@@ -5,6 +5,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.StudentDto;
+import ru.itis.ivavprp.dto.StudentInfoDto;
+import ru.itis.ivavprp.dto.TeacherInfoDto;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.repositories.StudentRepository;
@@ -51,5 +53,20 @@ public class StudentServiceImpl extends UserService implements StudentService {
         return studentRepository.findAll(spec, PageRequest.of(page, size)).stream()
                 .map(Student::toStudentDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentInfoDto findStudentById(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(IllegalStateException::new);
+        StudentInfoDto dto = StudentInfoDto
+                .builder()
+                .firstName(student.getFirstName())
+                .lastName(student.getLastName())
+                .course(student.getCourse())
+                .photo(student.getPhoto())
+                .rating(student.getRating())
+                .resumes(student.getResumes())
+                .build();
+        return dto;
     }
 }

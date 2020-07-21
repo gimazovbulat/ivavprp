@@ -1,9 +1,7 @@
 package ru.itis.ivavprp.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 import ru.itis.ivavprp.dto.StudentDto;
 
 import javax.persistence.*;
@@ -22,8 +20,8 @@ public class Student extends User {
     private Integer rating;
     private Integer course;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
+    @JsonManagedReference
     private List<Resume> resumes;
 
     @Builder(builderMethodName = "studentBuilder")

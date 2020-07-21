@@ -5,28 +5,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.itis.ivavprp.dto.StudentDto;
+import ru.itis.ivavprp.dto.StudentInfoDto;
+import ru.itis.ivavprp.dto.TeacherInfoDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.search.SearchService;
 import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.StudentService;
+import ru.itis.ivavprp.services.StudentServiceImpl;
 
 import java.util.List;
 
 @RestController
 public class StudentController {
     private final SearchService searchService;
-    private final StudentService studentService;
-    private final UserDetailsService userDetailsService;
+    private final StudentServiceImpl studentService;
 
-    public StudentController(SearchService searchService, StudentService studentService1, @Qualifier("userService") UserDetailsService userDetailsService) {
+    public StudentController(SearchService searchService, StudentServiceImpl studentService) {
         this.searchService = searchService;
-        this.studentService = studentService1;
-        this.userDetailsService = userDetailsService;
+        this.studentService = studentService;
     }
 
     @GetMapping("/students")
@@ -44,5 +43,11 @@ public class StudentController {
 
         Student student = (Student) userDetails;
         return ResponseEntity.ok(student.toString());
+    }
+
+    @GetMapping("/restApi/students/{id}")
+    public ResponseEntity<StudentInfoDto> get(@PathVariable("id") Long id) {
+        System.out.println("qq");
+        return ResponseEntity.ok(studentService.findStudentById(id));
     }
 }
