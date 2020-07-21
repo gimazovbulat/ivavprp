@@ -99,8 +99,17 @@
             }
 
             let skillsVals = skills.val()
-            if (skillsVals !== undefined) {
+            if (document.getElementById('skills').selectedIndex !== -1) {
                 let skillsValsJoined = skillsVals.join("*")
+                url = url + "skills:" + skillsValsJoined + ","
+                console.log(url)
+            } else {
+                let options = document.getElementById('skills').options
+                let optionsValues = [];
+                for (let i = 0; i < options.length; i++) {
+                    optionsValues[i] = options[i].value;
+                }
+                let skillsValsJoined = optionsValues.join("*")
                 url = url + "skills:" + skillsValsJoined + ","
                 console.log(url)
             }
@@ -136,25 +145,7 @@
                 url += "&coll=0"
             }
             console.log(url)
-
-            let vacName = document.getElementById('vacName')
-            let vacHref = document.getElementById('vacHref')
-            let text = document.getElementById('text')
-            let empl_sch = document.getElementById('empl_sch');
-            let date = document.getElementById('date')
-            let iterCode = "<div class=\"list-group col-md-10\">\n" +
-                "                    <a href=\"#\" class=\"list-group-item list-group-item-action flex-column align-items-start\" id=\"vacHref\">\n" +
-                "                        <div class=\"d-flex w-100 justify-content-between\">\n" +
-                "                            <h5 class=\"mb-1\" id=\"vacName\"></h5>\n" +
-                "                            <small id=\"date\"></small>\n" +
-                "                        </div>\n" +
-                "                        <p class=\"mb-1\" id=\"text\"></p>\n" +
-                "                        <small id=\"empl_sch\"></small>\n" +
-                "                        <small id=\"salary\"></small>\n" +
-                "                    </a>\n" +
-                "                </div>";
-            let results = document.getElementById('results');
-            let salary = document.getElementById('salary')
+            let results = $('#results');
             $.ajax({
                 url: url,
                 method: "GET",
@@ -162,29 +153,31 @@
                 contentType: "application/json",
                 success:
                     function (response) {
+                        results.html("")
                         for (let i = 0; i < response.length; i++) {
-                            console.log(response.length)
-                            results.innerHTML += iterCode;
-                            console.log(results.innerHTML)
-                        }
-                        for (let i = 0; i < response.length; i++) {
-                            vacName.innerHTML = response[i].name
-                            vacHref.setAttribute("href", '/vacancies_page/' + response[i].id);
-                            text.innerHTML = response[i].text;
-                            date.innerHTML += response[i].day + " ";
-                            date.innerHTML += response[i].month.charAt(0) + response[i].month.substring(1).toLowerCase();
+                            let salary = "";
                             if (response[i].minSalary !== 0 && response[i].maxSalary !== 0) {
-                                salary.innerHTML += response[i].minSalary;
-                                salary.innerHTML += "-" + response[i].maxSalary;
+                                salary += response[i].minSalary;
+                                salary += "-" + response[i].maxSalary;
                             } else if (response[i].minSalary === 0 && response[i].maxSalary === 0) {
 
                             } else if (response[i].maxSalary === 0) {
-                                salary.innerHTML += "from " + response[i].minSalary;
+                                salary += "from " + response[i].minSalary;
                             } else {
-                                salary.innerHTML += "to" + response[i].maxSalary;
+                                salary += "to " + response[i].maxSalary;
                             }
-                            empl_sch.innerHTML = response[i].workScheduleToShow + " " + response[i].emplTypeToShow;
-                            // results.innerHTML += "<a href=/companies/" + response[i].companyId.toString() + ">" + response[i].companyName + '</a><br>';
+                            results.append(" <div class=\"list-group col-md-10\">\n" +
+                                "        <a href='vacancies/" + response[i].id + "' class=\"list-group-item list-group-item-action flex-column align-items-start\">" +
+                                "            <div class=\"d-flex w-100 justify-content-between\">\n" +
+                                "                <h5 class=\"mb-1\" id=\"vacName\">" + response[i].name + "</h5>\n" +
+                                "                <small id=\"date\">" + response[i].day + " " +
+                                response[i].month.charAt(0) + response[i].month.substring(1).toLowerCase() + "</small>\n" +
+                                "            </div>\n" +
+                                "            <p class=\"mb-1\" id=\"text\">" + response[i].text + "</p>\n" +
+                                "            <small id=\"empl_sch\">" + response[i].workScheduleToShow + " " + response[i].emplTypeToShow + "</small>\n" +
+                                "            <small id=\"salary\">" + salary +  "</small>\n" +
+                                "        </a>\n" +
+                                "    </div>")
                         }
                     }
             })
@@ -207,8 +200,11 @@
 <main>
     <div class="container-fluid">
         <div class="row searchblock justify-content-center">
-            <input type="text" class="form-control" placeholder="Search" style="margin-top: 2%; width: 75%" name="name" form="search" id="name">
-            <button type="submit" class="btn btn-info" onclick="search();" form="search" style="height: 80%; margin-top: 2%; margin-left: 1%">Find</button>
+            <input type="text" class="form-control" placeholder="Search" style="margin-top: 2%; width: 75%" name="name"
+                   form="search" id="name">
+            <button type="submit" class="btn btn-info" onclick="search();" form="search"
+                    style="height: 80%; margin-top: 2%; margin-left: 1%">Find
+            </button>
             <div class="form-check-inline">
                 <select id="empl_types" form="search" multiple>
                 </select>
@@ -223,10 +219,10 @@
                 </select>
             </div>
         </div>
-            <div class="row offset-1 mt-5 mb-4">
-                <h2>Вакансии по запросу </h2>
-            </div>
-            <div class="row justify-content-center carousel" id='results'></div>
+        <div class="row offset-1 mt-5 mb-4">
+            <h2>Вакансии по запросу </h2>
+        </div>
+        <div class="row justify-content-center carousel" id='results'></div>
     </div>
 </main>
 </body>
