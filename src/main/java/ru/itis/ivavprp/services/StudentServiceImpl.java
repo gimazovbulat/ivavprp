@@ -145,4 +145,18 @@ public class StudentServiceImpl extends UserService implements StudentService {
         resumesRepository.save(resume);
         return skillsInResume.stream().map(Skill::toSkillDto).collect(Collectors.toList());
     }
+
+    @Override
+    public StudentDto update(Long id, StudentDto info) {
+        Student student = studentRepository.getOne(id);
+        if (info.getFirstName() != null) {
+            student.setFirstName(info.getFirstName());
+        }
+        if (info.getLastName() != null) {
+            student.setLastName(info.getLastName());
+        }
+        Student savedStudent = studentRepository.save(student);
+        StudentDto dto = Student.toStudentDto(savedStudent);
+        return dto;
+    }
 }

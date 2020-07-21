@@ -1,7 +1,6 @@
 package ru.itis.ivavprp.services;
 
 import org.springframework.data.jpa.domain.Specification;
-import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.models.Student;
 
@@ -21,5 +20,6 @@ public interface StudentService {
     List<SkillDto> removeSkillsToResume(Long studentId, Long resumeId, List<Long> skillIds);
 
     StudentDto findStudentById(Long id);
+    StudentDto update(Long id, StudentDto studentDto );
 
 }
