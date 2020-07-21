@@ -142,6 +142,18 @@
             let text = document.getElementById('text')
             let empl_sch = document.getElementById('empl_sch');
             let date = document.getElementById('date')
+            let iterCode = "<div class=\"list-group col-md-10\">\n" +
+                "                    <a href=\"#\" class=\"list-group-item list-group-item-action flex-column align-items-start\" id=\"vacHref\">\n" +
+                "                        <div class=\"d-flex w-100 justify-content-between\">\n" +
+                "                            <h5 class=\"mb-1\" id=\"vacName\"></h5>\n" +
+                "                            <small id=\"date\"></small>\n" +
+                "                        </div>\n" +
+                "                        <p class=\"mb-1\" id=\"text\"></p>\n" +
+                "                        <small id=\"empl_sch\"></small>\n" +
+                "                        <small id=\"salary\"></small>\n" +
+                "                    </a>\n" +
+                "                </div>";
+            let results = document.getElementById('results');
             let salary = document.getElementById('salary')
             $.ajax({
                 url: url,
@@ -150,6 +162,11 @@
                 contentType: "application/json",
                 success:
                     function (response) {
+                        for (let i = 0; i < response.length; i++) {
+                            console.log(response.length)
+                            results.innerHTML += iterCode;
+                            console.log(results.innerHTML)
+                        }
                         for (let i = 0; i < response.length; i++) {
                             vacName.innerHTML = response[i].name
                             vacHref.setAttribute("href", '/vacancies_page/' + response[i].id);
@@ -209,19 +226,7 @@
             <div class="row offset-1 mt-5 mb-4">
                 <h2>Вакансии по запросу </h2>
             </div>
-            <div class="row justify-content-center carousel">
-                <div class="list-group col-md-10" id="results">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="vacHref">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1" id="vacName"></h5>
-                            <small id="date"></small>
-                        </div>
-                        <p class="mb-1" id="text"></p>
-                        <small id="empl_sch"></small>
-                        <small id="salary"></small>
-                    </a>
-                </div>
-            </div>
+            <div class="row justify-content-center carousel" id='results'></div>
     </div>
 </main>
 </body>
