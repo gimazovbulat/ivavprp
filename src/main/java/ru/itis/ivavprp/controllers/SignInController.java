@@ -25,7 +25,6 @@ public class SignInController {
 
 
     @PostMapping("/login")
-    @PreAuthorize("isAnonymous()")
     public ResponseEntity<TokenDto> login(@RequestBody LoginDto loginData) {
         return ResponseEntity.ok(service.login(loginData));
     }

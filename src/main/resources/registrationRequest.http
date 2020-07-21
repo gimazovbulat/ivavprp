@@ -10,9 +10,9 @@ POST http://localhost:8080/reg
 Content-Type: application/json
 
 {
-  "email": "qwert@gmail.com",
+  "email": "qwert1@gmail.com",
   "password": "qwerty007",
-  "role": "STUDENT"
+  "role": "COMPANY"
 }
 
 
@@ -80,3 +80,17 @@ GET http://localhost:8080/restApi/resume/1
 GET http://localhost:8080/students/skills
 
 ###
+POST http://localhost:8080/restApi/resume/
+Content-Type: application/json
+
+{
+  "name": "name",
+  "text": "text",
+  "skills": [
+    4,
+    2,
+    3
+  ],
+  "employmentType": "FULL_TIME",
+  "workSchedule": "REMOTE_WORKING"
+}
