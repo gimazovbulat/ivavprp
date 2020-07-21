@@ -1,6 +1,7 @@
 package ru.itis.ivavprp.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import ru.itis.ivavprp.dto.EmploymentType;
 import ru.itis.ivavprp.dto.ResumeDto;
@@ -9,8 +10,7 @@ import ru.itis.ivavprp.dto.WorkSchedule;
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -38,8 +38,8 @@ public class Resume {
     @Transient
     private String emplTypeToShow;
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    @JsonBackReference
+    @JsonIgnore
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
     public static Resume fromResumeDto(ResumeDto resumeDto) {
@@ -52,7 +52,6 @@ public class Resume {
                 .skills(resumeDto.getSkills())
                 .text(resumeDto.getText())
                 .workScheduleToShow(resumeDto.getWorkScheduleToShow())
-                .student(resumeDto.getStudent())
                 .build();
     }
 
@@ -67,6 +66,9 @@ public class Resume {
                 .text(resume.getText())
                 .workScheduleToShow(resume.getWorkScheduleToShow())
                 .student(resume.getStudent())
+                .studentId(resume.getStudent().getId())
+                .studentFirstName(resume.getStudent().getFirstName())
+                .studentLastName(resume.getStudent().getLastName())
                 .build();
     }
 

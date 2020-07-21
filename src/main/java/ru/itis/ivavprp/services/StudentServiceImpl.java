@@ -4,9 +4,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.itis.ivavprp.dto.CompanyDto;
 import ru.itis.ivavprp.dto.StudentDto;
-import ru.itis.ivavprp.dto.StudentInfoDto;
-import ru.itis.ivavprp.dto.TeacherInfoDto;
+import ru.itis.ivavprp.models.Company;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.repositories.StudentRepository;
@@ -14,6 +14,7 @@ import ru.itis.ivavprp.repositories.UserRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,17 +57,12 @@ public class StudentServiceImpl extends UserService implements StudentService {
     }
 
     @Override
-    public StudentInfoDto findStudentById(Long id) {
-        Student student = studentRepository.findById(id).orElseThrow(IllegalStateException::new);
-        StudentInfoDto dto = StudentInfoDto
-                .builder()
-                .firstName(student.getFirstName())
-                .lastName(student.getLastName())
-                .course(student.getCourse())
-                .photo(student.getPhoto())
-                .rating(student.getRating())
-                .resumes(student.getResumes())
-                .build();
-        return dto;
+    public StudentDto findStudentById(Long id) {
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if(optionalStudent.isPresent()){
+            Student student = optionalStudent.get();
+            return Student.toStudentDto(student);
+        }
+        throw new IllegalStateException(); //custom exception
     }
 }

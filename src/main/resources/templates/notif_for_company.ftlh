@@ -44,18 +44,12 @@
                         <h1>Уведомления</h1>
                     </div>
                 </div>
-// я не понимаю что здесь происходит
+
 
                 <div class="row justify-content-center align-content-center">
                     <div class="col-sm-10 profile">
-                        <ul class="list-group list">
+                        <ul class="list-group list" id="info">
 
-                            <li class="list-group-item" id="info">
-                                <button type="submit" class="btn btn-info button" style="color: yellowgreen">Принять
-                                </button>
-                                <button type="submit" class="btn btn-info button" style="color: coral">Отклонить
-                                </button>
-                            </li>
 
                         </ul>
                     </div>
@@ -70,13 +64,7 @@
 
 
 </main>
-<footer>
-    <div class="container-fluid">
-        <div class="row footer justify-content-center">
-            <h2>Футер</h2>
-        </div>
-    </div>
-</footer>
+
 
 <script>
     window.onload = function () {
@@ -85,17 +73,34 @@
             logout()
         }
         let request = new XMLHttpRequest();
-        let id = document.location.pathname.slice(10);
+        let id = document.location.pathname.slice(12);
 
 
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                var resumeVacancy = JSON.parse(this.responseText);
-                document.getElementById("info").innerHTML = resumeVacancy.resume + resumeVacancy.vacancy;
+                var resumeVacancies = JSON.parse(this.responseText);
+
+                resumeVacancies.forEach(resumeVacancy => {
+                    document.getElementById("info").innerHTML +=
+                        " <li class='list-group-item'>" +
+                        "<a href='http://localhost:8080/vacancy/" +
+                        resumeVacancy.vacancy["id"] +
+                        "'>" + resumeVacancy.vacancy["name"] + "</a>" + "<br>" +
+                        "<a href='http://localhost:8080/resume/" +
+                        resumeVacancy.resume["id"] +
+                        "'>" + resumeVacancy.resume["name"] + "</a>" +
+                        "<form method='POST' action='http://localhost:8080/notif/comp/" + resumeVacancy.id + "/APLIED'>" +
+                        "<button type='submit'  class='btn btn-info button'> Принять </button></form>" +
+                        "<form method='POST' action='http://localhost:8080/notif/comp/" + resumeVacancy.id + "/NOT_APLIED'>" +
+                        "<button type='submit'  class='btn btn-info button'> Отклонить </button></form>"
+                        +"</li>";
+                });
+
+
             }
         };
 
-        request.open("GET", "/notif/comp" );
+        request.open("GET", "../../api/notif/comp/" + id);
         request.setRequestHeader('AUTH', localStorage.getItem("token"));
         request.send();
     };

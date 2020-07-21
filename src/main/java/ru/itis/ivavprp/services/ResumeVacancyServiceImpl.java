@@ -18,9 +18,9 @@ public class ResumeVacancyServiceImpl implements ResumeVacancyService {
     }
 
     @Override
-    public List<ResumeVacancyDto> getAllByCompanyId(Long companyId) {
+    public List<ResumeVacancyDto> getAllByCompanyIdNotChecked(Long companyId) {
         return resumeVacancyRepository
-                .findAllByVacancy_Company_Id(companyId)
+                .findAllByVacancy_Company_IdAndStatus(companyId, Status.NOT_CHECKED)
                 .stream()
                 .map(ResumeVacancy::toResumeVacancyDto)
                 .collect(Collectors.toList());

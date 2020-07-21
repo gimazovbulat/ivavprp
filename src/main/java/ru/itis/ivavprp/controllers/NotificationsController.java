@@ -27,27 +27,32 @@ public class NotificationsController {
         this.resumeVacancyService = resumeVacancyService;
     }
 
-    @PreAuthorize("hasAuthority('STUDENT')")
-    @GetMapping("/notif/stud")
-    public ResponseEntity<List<ResumeVacancyDto>> showNotificationsForStudents(@CurrentUser UserDetails userDetails) {
-        User user = (User) userDetails;
-        return new ResponseEntity<>(resumeVacancyService.getAllByStudentId(user.getId()), HttpStatus.OK);
+
+    @GetMapping("api/notif/stud/{id}")
+    public ResponseEntity<List<ResumeVacancyDto>> showNotificationsForStudents(@PathVariable Long id) {
+        return new ResponseEntity<>(resumeVacancyService.getAllByStudentId(id), HttpStatus.OK);
     }
 
 
-    @PreAuthorize("hasAuthority('COMPANY')")
-    @GetMapping("/notif/comp")
-    public ResponseEntity<List<ResumeVacancyDto>> showNotificationsForCompanies(@CurrentUser UserDetails userDetails) {
-        User user = (User) userDetails;
-        return new ResponseEntity<>(resumeVacancyService.getAllByCompanyId(user.getId()), HttpStatus.OK);
+
+    @GetMapping("/api/notif/comp/{id}")
+    public ResponseEntity<List<ResumeVacancyDto>> showNotificationsForCompanies(@PathVariable Long id) {
+        System.out.println("im here");
+        return new ResponseEntity<>(resumeVacancyService.getAllByCompanyIdNotChecked(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('COMPANY')")
+
     @PostMapping("/notif/comp/{id}/{status}")
-    public ResponseEntity<?> changeStatus(@PathVariable Long id, @PathVariable String status){
-        resumeVacancyService.changeStatus(id, Status.valueOf(status));
-        return ResponseEntity.accepted().build();
-    }
+    public ResponseEntity changeStatus(@PathVariable("id") Long id, @PathVariable("status") String status){
+        System.out.println("change status");
+        if(status.equals("APLIED")){
+            resumeVacancyService.changeStatus(id, Status.APPLIED);
+        }
+        if(status.equals("NOT_APLIED")){
+            resumeVacancyService.changeStatus(id, Status.NOT_APPLIED);
+        }
 
+        return ResponseEntity.ok().build();
+    }
 
 }

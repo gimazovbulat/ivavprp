@@ -1,19 +1,14 @@
 package ru.itis.ivavprp.controllers;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.StudentDto;
-import ru.itis.ivavprp.dto.StudentInfoDto;
-import ru.itis.ivavprp.dto.TeacherInfoDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.search.SearchService;
 import ru.itis.ivavprp.security.CurrentUser;
-import ru.itis.ivavprp.services.StudentService;
 import ru.itis.ivavprp.services.StudentServiceImpl;
 
 import java.util.List;
@@ -46,7 +41,7 @@ public class StudentController {
     }
 
     @GetMapping("/restApi/students/{id}")
-    public ResponseEntity<StudentInfoDto> get(@PathVariable("id") Long id) {
+    public ResponseEntity<StudentDto> get(@PathVariable("id") Long id) {
         System.out.println("qq");
         return ResponseEntity.ok(studentService.findStudentById(id));
     }

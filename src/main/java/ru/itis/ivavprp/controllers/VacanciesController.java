@@ -63,7 +63,7 @@ public class VacanciesController {
             vacancyToUpdate = vacanciesService.addOrRemoveSkills(vacId, addOrRemoveSkills);
             return ResponseEntity.ok(vacancyToUpdate);
         }
-       return ResponseEntity.ok(vacancy);
+        return ResponseEntity.ok(vacancy);
     }
 
     @GetMapping("/vacancies/{id}")
@@ -81,4 +81,12 @@ public class VacanciesController {
         List<?> results = searchService.getVacanciesResults(search, page, size, coll);
         return (List<VacancyDto>) results;
     }
+
+    @GetMapping("/vacancy/{id}")
+    @ResponseBody
+    public VacancyDto findById(@PathVariable Long id) {
+        VacancyDto vacancyDto = vacanciesService.getOneById(id);
+        return vacancyDto;
+    }
+
 }

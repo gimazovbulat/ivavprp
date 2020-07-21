@@ -25,4 +25,24 @@ public class ResumeDto {
     private String workScheduleToShow;
     private String emplTypeToShow;
     private Student student;
+    private Long studentId;
+    private String studentFirstName;
+    private String studentLastName;
+
+    @Override
+    public String toString() {
+        return "ResumeDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", skills=" + skills +
+                ", text='" + text + '\'' +
+                ", employmentType=" + employmentType +
+                ", workSchedule=" + workSchedule +
+                ", workScheduleToShow='" + workScheduleToShow + '\'' +
+                ", emplTypeToShow='" + emplTypeToShow + '\'' +
+                ", studentId=" + studentId +
+                ", studentFirstName='" + studentFirstName + '\'' +
+                ", studentLastName='" + studentLastName + '\'' +
+                '}';
+    }
 }
