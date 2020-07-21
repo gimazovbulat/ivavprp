@@ -19,4 +19,10 @@ public interface SkillsRepository extends JpaRepository<Skill, Long> {
 
     @Query("SELECT distinct skill from Skill skill order by skill.name")
     List<Skill> getTopSkills(Pageable pageable);
+
+    @Query(value = "SELECT CASE WHEN EXISTS(" +
+            "SELECT * from ivavprp.skills_students where skill_id = :skillId and student_id = :studentId and confirmed = true)" +
+            " THEN CAST(1 AS BIT)" +
+            " ELSE CAST(0 AS BIT) END", nativeQuery = true)
+    boolean isConfirmed(@Param("studentId") Long studentId, @Param("skillId") Long skillId);
 }

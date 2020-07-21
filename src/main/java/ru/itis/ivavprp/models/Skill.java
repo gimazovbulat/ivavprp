@@ -27,12 +27,15 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     @JsonIgnore
     private List<Vacancy> vacancies;
+    @Transient
+    private boolean confirmed;
 
     public static Skill fromSkillDto(SkillDto skillDto) {
         return Skill.builder()
                 .id(skillDto.getId())
                 .name(skillDto.getName())
                 .points(skillDto.getPoints())
+                .confirmed(skillDto.isConfirmed())
                 .build();
     }
 
@@ -40,6 +43,7 @@ public class Skill {
         return SkillDto.builder()
                 .id(skill.getId())
                 .nameToShow(skill.getName())
+                .confirmed(skill.isConfirmed())
                 .name(skill.getName().replaceAll(" ", "_"))
                 .points(skill.getPoints())
                 .build();

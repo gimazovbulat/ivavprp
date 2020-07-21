@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.ivavprp.dto.TeacherDto;
 import ru.itis.ivavprp.dto.TeacherInfoDto;
 import ru.itis.ivavprp.models.Teacher;
 import ru.itis.ivavprp.security.CurrentUser;
@@ -25,7 +24,7 @@ public class TeacherController {
 
     @GetMapping("/restApi/teachers/{id}")
     public ResponseEntity<TeacherInfoDto> get(@PathVariable("id") Long id) {
-        System.out.println("qq");
+
         return ResponseEntity.ok(teacherService.findTeacherById(id));
     }
 

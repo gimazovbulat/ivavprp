@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
-public class SkillDto {
+public class TeacherStatusDto {
     private Long id;
-    private String name;
-    private int points;
-    private String nameToShow;
-    private boolean confirmed;
+    private boolean isActive;
 }
