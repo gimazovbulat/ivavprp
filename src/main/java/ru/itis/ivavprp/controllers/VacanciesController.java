@@ -82,11 +82,6 @@ public class VacanciesController {
         return ResponseEntity.ok(results);
     }
 
-    @GetMapping("/vacancy/{id}")
-    @ResponseBody
-    public VacancyDto findById(@PathVariable Long id) {
-        VacancyDto vacancyDto = vacanciesService.getOneById(id);
-        return vacancyDto;
-    }
+
 
 }

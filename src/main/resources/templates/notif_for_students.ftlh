@@ -83,7 +83,7 @@
                 resumeVacancies.forEach(resumeVacancy => {
                     document.getElementById("info").innerHTML +=
                         " <li class='list-group-item'>" +
-                        "<a href='http://localhost:8080/vacancy/" +
+                        "<a href='http://localhost:8080/vacancies/" +
                         resumeVacancy.vacancy["id"] +
                         "'>" + resumeVacancy.vacancy["name"] + "</a>" + "<br>" +
                         "<a href='http://localhost:8080/resume/" +
