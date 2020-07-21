@@ -96,8 +96,17 @@
             }
 
             let skillsVals = skills.val()
-            if (skillsVals !== undefined) {
+            if (document.getElementById('skills').selectedIndex !== -1) {
                 let skillsValsJoined = skillsVals.join("*")
+                url = url + "skills:" + skillsValsJoined + ","
+                console.log(url)
+            } else {
+                let options = document.getElementById('skills').options
+                let optionsValues = [];
+                for (let i = 0; i < options.length; i++) {
+                    optionsValues[i] = options[i].value;
+                }
+                let skillsValsJoined = optionsValues.join("*")
                 url = url + "skills:" + skillsValsJoined + ","
                 console.log(url)
             }
@@ -133,10 +142,7 @@
                 url += "&coll=0"
             }
             console.log(url)
-            let resName = document.getElementById('resName')
-            let resHref = document.getElementById('resHref')
-            let text = document.getElementById('text')
-            let empl_sch = document.getElementById('empl_sch');
+            let results = $('#results');
             $.ajax({
                 url: url,
                 method: "GET",
@@ -144,11 +150,17 @@
                 contentType: "application/json",
                 success:
                     function (response) {
+                        results.html("")
                         for (let i = 0; i < response.length; i++) {
-                            resName.innerHTML = response[i].name
-                            resHref.setAttribute("href", '/resumes_page/' + response[i].id);
-                            text.innerHTML = response[i].text;
-                            empl_sch.innerHTML = response[i].workScheduleToShow + " " + response[i].emplTypeToShow;
+                            results.append("<div class=\"list-group col-md-10\">\n" +
+                                "                <a href='/resumes_page/" + response[i].id + "' class=\"list-group-item list-group-item-action flex-column align-items-start\" id=\"resHref\">\n" +
+                                "                    <div class=\"d-flex w-100 justify-content-between\">\n" +
+                                "                        <h5 class=\"mb-1\" id=\"" + response[i].name + "\"></h5>\n" +
+                                "                    </div>\n" +
+                                "                    <p class=\"mb-1\" id=\"text\">" + response[i].text + "</p>\n" +
+                                "                    <small id=\"empl_sch\">" + response[i].workScheduleToShow + " " + response[i].emplTypeToShow + "</small>\n" +
+                                "                </a>\n" +
+                                "        </div>")
                         }
                     }
             })
@@ -170,37 +182,31 @@
 <main>
     <div class="container-fluid">
         <div class="row searchblock justify-content-center">
-            <input type="text" class="form-control" placeholder="Search" style="margin-top: 2%; width: 75%" name="name" form="search" id="name">
-            <button type="submit" class="btn btn-info" onclick="search();" form="search" style="height: 80%; margin-top: 2%; margin-left: 1%">Find</button>
+            <input type="text" class="form-control" placeholder="Search" style="margin-top: 2%; width: 75%" name="name"
+                   form="search" id="name">
+            <button type="submit" class="btn btn-info" onclick="search();" form="search"
+                    style="height: 80%; margin-top: 2%; margin-left: 1%">Find
+            </button>
             <div class="form-check-inline">
-            <select id="empl_types" form="search" multiple>
-            </select>
-            <select id="work_schedule" form="search" multiple>
-            </select>
-            <select id="skills" form="search" multiple>
-            </select>
-            <#--<select id="pages" form="search">
-            </select>-->
-            <select id="size" form="size" multiple>
-                <option name="size" value="10">10</option>
-                <option name="size" value="20">20</option>
-                <option name="size" value="30">30</option>
-            </select>
+                <select id="empl_types" form="search" multiple>
+                </select>
+                <select id="work_schedule" form="search" multiple>
+                </select>
+                <select id="skills" form="search" multiple>
+                </select>
+                <#--<select id="pages" form="search">
+                </select>-->
+                <select id="size" form="size" multiple>
+                    <option name="size" value="10">10</option>
+                    <option name="size" value="20">20</option>
+                    <option name="size" value="30">30</option>
+                </select>
             </div>
         </div>
         <div class="row offset-1 mt-5 mb-4">
-            <h2>Резюме по запросу </h2>
+            <h2>Resumes </h2>
         </div>
-        <div class="row justify-content-center carousel">
-            <div class="list-group col-md-10" id="results">
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="resHref">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1" id="resName"></h5>
-                    </div>
-                    <p class="mb-1" id="text"></p>
-                    <small id="empl_sch"></small>
-                </a>
-            </div>
+        <div class="row justify-content-center carousel" id="results">
         </div>
     </div>
 </main>

@@ -167,7 +167,7 @@
                                 salary += "to " + response[i].maxSalary;
                             }
                             results.append(" <div class=\"list-group col-md-10\">\n" +
-                                "        <a href='vacancies/" + response[i].id + "' class=\"list-group-item list-group-item-action flex-column align-items-start\">" +
+                                "        <a href='/vacancies/" + response[i].id + "' class=\"list-group-item list-group-item-action flex-column align-items-start\">" +
                                 "            <div class=\"d-flex w-100 justify-content-between\">\n" +
                                 "                <h5 class=\"mb-1\" id=\"vacName\">" + response[i].name + "</h5>\n" +
                                 "                <small id=\"date\">" + response[i].day + " " +
