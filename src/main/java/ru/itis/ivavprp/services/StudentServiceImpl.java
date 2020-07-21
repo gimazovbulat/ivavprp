@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.StudentDto;
-import ru.itis.ivavprp.dto.StudentInfoDto;
 import ru.itis.ivavprp.models.Resume;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Skill;
@@ -65,20 +64,7 @@ public class StudentServiceImpl extends UserService implements StudentService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public StudentInfoDto findStudentInfo(Long id) {
-        Student student = studentRepository.findById(id).orElseThrow(IllegalStateException::new);
-        StudentInfoDto dto = StudentInfoDto
-                .builder()
-                .firstName(student.getFirstName())
-                .lastName(student.getLastName())
-                .course(student.getCourse())
-                .photo(student.getPhoto())
-                .rating(student.getRating())
-                .resumes(student.getResumes())
-                .build();
-        return dto;
-    }
+
 
     public StudentDto findStudentById(Long id) {
         Optional<Student> optionalStudent = studentRepository.findById(id);

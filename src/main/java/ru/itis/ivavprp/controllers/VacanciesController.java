@@ -12,7 +12,6 @@ import ru.itis.ivavprp.search.SearchService;
 import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.VacanciesService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -63,22 +62,26 @@ public class VacanciesController {
             vacancyToUpdate = vacanciesService.addOrRemoveSkills(vacId, addOrRemoveSkills);
             return ResponseEntity.ok(vacancyToUpdate);
         }
-       return ResponseEntity.ok(vacancy);
+        return ResponseEntity.ok(vacancy);
     }
 
     @GetMapping("/vacancies/{id}")
-    @ResponseBody
-    public List<VacancyDto> findAllBySpecification(@RequestParam(value = "search", required = false) String search,
-                                                   int page,
-                                                   int size,
-                                                   int coll, @PathVariable(value = "id", required = false) Long id) {
-        if (id == 0) {
-            List<VacancyDto> vacancyDtos = new ArrayList<>();
-            VacancyDto oneById = vacanciesService.getOneById(id);
-            vacancyDtos.add(oneById);
-            return vacancyDtos;
-        }
-        List<?> results = searchService.getVacanciesResults(search, page, size, coll);
-        return (List<VacancyDto>) results;
+    public ResponseEntity<VacancyDto> getById(@PathVariable(value = "id", required = false) Long id) {
+        VacancyDto vacDto = vacanciesService.getOneById(id);
+        return ResponseEntity.ok(vacDto);
     }
+
+
+    @GetMapping("/vacancies")
+    @ResponseBody
+    public ResponseEntity<List<VacancyDto>> findAllBySpecification(@RequestParam(value = "search") String search,
+                                                                   @RequestParam Integer page,
+                                                                   @RequestParam Integer size,
+                                                                   @RequestParam Integer coll) {
+        List<VacancyDto> results = (List<VacancyDto>) searchService.getVacanciesResults(search, page, size, coll);
+        return ResponseEntity.ok(results);
+    }
+
+
+
 }
