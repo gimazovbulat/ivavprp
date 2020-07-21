@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.StudentDto;
+import ru.itis.ivavprp.dto.StudentInfoDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.models.User;
@@ -129,5 +130,12 @@ public class StudentController {
         Student student = (Student) userDetails;
         List<SkillDto> addedSkills = studentService.removeSkillsToResume(student.getId(), resumeId, skillIds);
         return ResponseEntity.ok(addedSkills);
+    }
+
+
+    @GetMapping("/restApi/students/{id}")
+    public ResponseEntity<StudentInfoDto> get(@PathVariable("id") Long id) {
+        System.out.println("qq");
+        return ResponseEntity.ok(studentService.findStudentInfo(id));
     }
 }

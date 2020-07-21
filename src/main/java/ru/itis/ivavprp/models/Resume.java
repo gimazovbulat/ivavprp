@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import ru.itis.ivavprp.dto.EmploymentType;
 import ru.itis.ivavprp.dto.ResumeDto;
 import ru.itis.ivavprp.dto.WorkSchedule;
+import ru.itis.ivavprp.models.Skill;
+import ru.itis.ivavprp.models.Student;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,5 +1,6 @@
 package ru.itis.ivavprp.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class Student extends User {
     private List<Skill> allSkills;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    @JsonManagedReference
     private List<Resume> resumes;
 
     @Builder(builderMethodName = "studentBuilder")
@@ -40,7 +42,7 @@ public class Student extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.course = course;
-        this.setAllSkills(skills);
+        this.allSkills = skills;
         this.photo = photo;
         this.rating = rating;
         this.resumes = resumes;

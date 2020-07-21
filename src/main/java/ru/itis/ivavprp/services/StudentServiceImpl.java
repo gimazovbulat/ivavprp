@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.ivavprp.dto.SkillDto;
 import ru.itis.ivavprp.dto.StudentDto;
+import ru.itis.ivavprp.dto.StudentInfoDto;
 import ru.itis.ivavprp.models.Resume;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Skill;
@@ -65,6 +66,35 @@ public class StudentServiceImpl extends UserService implements StudentService {
     }
 
     @Override
+    public StudentInfoDto findStudentInfo(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(IllegalStateException::new);
+        StudentInfoDto dto = StudentInfoDto
+                .builder()
+                .firstName(student.getFirstName())
+                .lastName(student.getLastName())
+                .course(student.getCourse())
+                .photo(student.getPhoto())
+                .rating(student.getRating())
+                .resumes(student.getResumes())
+                .build();
+        return dto;
+    }
+
+    public StudentDto findStudentById(Long id) {
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if (optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            List<Skill> allSkills = student.getAllSkills();
+            for (Skill skill : allSkills) {
+                boolean confirmed = skillsRepository.isConfirmed(id, skill.getId());
+                skill.setConfirmed(confirmed);
+            }
+            return Student.toStudentDto(student);
+        }
+        throw new EntityNotFoundException();
+    }
+
+    @Override
     public List<SkillDto> addSkills(StudentDto studentDto, List<Long> skillIds) {
         List<SkillDto> allSkills = addOrRemoveSkills(studentDto, skillIds, 1);
         return allSkills;
@@ -110,21 +140,6 @@ public class StudentServiceImpl extends UserService implements StudentService {
     @Override
     public List<SkillDto> removeSkillsToResume(Long studentId, Long resumeId, List<Long> skillIds) {
         return addOrRemoveResumeSkills(studentId, resumeId, skillIds, 0);
-    }
-
-    @Override
-    public StudentDto findStudentById(Long id) {
-        Optional<Student> optionalStudent = studentRepository.findById(id);
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            List<Skill> allSkills = student.getAllSkills();
-            for (Skill skill : allSkills){
-                boolean confirmed = skillsRepository.isConfirmed(id, skill.getId());
-                skill.setConfirmed(confirmed);
-            }
-            return Student.toStudentDto(student);
-        }
-        throw new EntityNotFoundException();
     }
 
     private List<SkillDto> addOrRemoveResumeSkills(Long studentId, Long resumeId, List<Long> skillIds, int action) {
