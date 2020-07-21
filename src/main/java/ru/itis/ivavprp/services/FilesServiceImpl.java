@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ru.itis.ivavprp.dto.CompanyDto;
-import ru.itis.ivavprp.dto.CompanyInfoDto;
-import ru.itis.ivavprp.dto.StudentDto;
-import ru.itis.ivavprp.dto.TeacherInfoDto;
+import ru.itis.ivavprp.dto.*;
 import ru.itis.ivavprp.models.FileInfo;
 import ru.itis.ivavprp.models.Student;
 import ru.itis.ivavprp.models.Teacher;
@@ -61,9 +58,9 @@ public class FilesServiceImpl implements FilesService {
 
         switch (userType) {
             case 1: {
-//                StudentDto student = studentService.findOne(userId);
-//                student.setPhoto(storageName);
-//                studentService.(student);
+                StudentInfoDto info = new StudentInfoDto();
+                info.setPhoto(storageName);
+                studentService.update(userId, info);
                 break;
             }
             case 2: {
@@ -74,8 +71,10 @@ public class FilesServiceImpl implements FilesService {
                 break;
             }
             case 3: {
-//                TeacherInfoDto teacher = teacherService.findTeacherById(userId);
-//                teacher.setPhoto(storageName); todo
+                TeacherInfoDto info = new TeacherInfoDto();
+                info.setPhoto(storageName);
+                System.out.println(info);
+                teacherService.update(userId, info);
                 break;
             }
         }

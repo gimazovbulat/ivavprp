@@ -60,6 +60,10 @@ public class TeacherServiceImpl extends UserService implements TeacherService {
         if (info.getLastName() != null) {
             teacher.setLastName(info.getLastName());
         }
+        if (info.getPhoto() != null) {
+            teacher.setPhoto(info.getPhoto());
+            System.out.println(teacher);
+        }
         Teacher savedTeacher = teacherRepository.save(teacher);
         TeacherInfoDto dto = TeacherInfoDto
                 .builder()

@@ -6,8 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.ivavprp.dto.StudentDto;
+import ru.itis.ivavprp.dto.StudentInfoDto;
+import ru.itis.ivavprp.dto.TeacherInfoDto;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Student;
+import ru.itis.ivavprp.models.Teacher;
 import ru.itis.ivavprp.repositories.StudentRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
 
@@ -62,5 +65,28 @@ public class StudentServiceImpl extends UserService implements StudentService {
             return Student.toStudentDto(optionalStudent.get());
         }
         throw new EntityNotFoundException();
+    }
+
+    @Override
+    public StudentInfoDto update(Long id, StudentInfoDto info) {
+        Student student = studentRepository.getOne(id);
+        if (info.getFirstName() != null) {
+            student.setFirstName(info.getFirstName());
+        }
+        if (info.getLastName() != null) {
+            student.setLastName(info.getLastName());
+        }
+        if (info.getPhoto() != null) {
+            student.setPhoto(info.getPhoto());
+            System.out.println(student);
+        }
+        Student savedStudent = studentRepository.save(student);
+        StudentInfoDto dto = StudentInfoDto
+                .builder()
+                .firstName(savedStudent.getFirstName())
+                .lastName(savedStudent.getLastName())
+                .photo(savedStudent.getPhoto())
+                .build();
+        return dto;
     }
 }
