@@ -5,7 +5,21 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title style="  padding-top: 50px;
+    padding-bottom: 70px;
+    font-weight: 700;
+    padding-left: 30px;">search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/search.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+
+
     <script
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -85,8 +99,17 @@
             }
 
             let skillsVals = skills.val()
-            if (skillsVals !== undefined) {
+            if (document.getElementById('skills').selectedIndex !== -1) {
                 let skillsValsJoined = skillsVals.join("*")
+                url = url + "skills:" + skillsValsJoined + ","
+                console.log(url)
+            } else {
+                let options = document.getElementById('skills').options
+                let optionsValues = [];
+                for (let i = 0; i < options.length; i++) {
+                    optionsValues[i] = options[i].value;
+                }
+                let skillsValsJoined = optionsValues.join("*")
                 url = url + "skills:" + skillsValsJoined + ","
                 console.log(url)
             }
@@ -122,8 +145,7 @@
                 url += "&coll=0"
             }
             console.log(url)
-
-            let results = document.getElementById('results')
+            let results = $('#results');
             $.ajax({
                 url: url,
                 method: "GET",
@@ -131,27 +153,31 @@
                 contentType: "application/json",
                 success:
                     function (response) {
-                        $('#results').html("")
+                        results.html("")
                         for (let i = 0; i < response.length; i++) {
-                            results.innerHTML += "<a href=/vacancies/" + response[i].id + ">" + response[i].name + '</a><br>';
-                            results.innerHTML += response[i].text + '<br>';
-                            results.innerHTML += response[i].day + " ";
-                            results.innerHTML += response[i].month.charAt(0) + response[i].month.substring(1).toLowerCase() + '<br>';
+                            let salary = "";
                             if (response[i].minSalary !== 0 && response[i].maxSalary !== 0) {
-                                results.innerHTML += response[i].minSalary;
-                                results.innerHTML += "-" + response[i].maxSalary + '<br>';
+                                salary += response[i].minSalary;
+                                salary += "-" + response[i].maxSalary;
                             } else if (response[i].minSalary === 0 && response[i].maxSalary === 0) {
 
                             } else if (response[i].maxSalary === 0) {
-                                results.innerHTML += "from " + response[i].minSalary + '<br>';
+                                salary += "from " + response[i].minSalary;
                             } else {
-                                results.innerHTML += "to" + response[i].maxSalary + '<br>';
+                                salary += "to " + response[i].maxSalary;
                             }
-                            results.innerHTML += response[i].workScheduleToShow + '<br>';
-                            results.innerHTML += response[i].emplTypeToShow + '<br>';
-                            results.innerHTML += "<a href=/companies/" + response[i].companyId.toString() + ">" + response[i].companyName + '</a><br>';
-                            results.innerHTML += '<br>';
-                            // $('#pages').append('<option value=' + i + '>' + (i + 1) + '</option>')
+                            results.append(" <div class=\"list-group col-md-10\">\n" +
+                                "        <a href='/vacancies/" + response[i].id + "' class=\"list-group-item list-group-item-action flex-column align-items-start\">" +
+                                "            <div class=\"d-flex w-100 justify-content-between\">\n" +
+                                "                <h5 class=\"mb-1\" id=\"vacName\">" + response[i].name + "</h5>\n" +
+                                "                <small id=\"date\">" + response[i].day + " " +
+                                response[i].month.charAt(0) + response[i].month.substring(1).toLowerCase() + "</small>\n" +
+                                "            </div>\n" +
+                                "            <p class=\"mb-1\" id=\"text\">" + response[i].text + "</p>\n" +
+                                "            <small id=\"empl_sch\">" + response[i].workScheduleToShow + " " + response[i].emplTypeToShow + "</small>\n" +
+                                "            <small id=\"salary\">" + salary +  "</small>\n" +
+                                "        </a>\n" +
+                                "    </div>")
                         }
                     }
             })
@@ -159,22 +185,45 @@
     </script>
 </head>
 <body onload="onLoad()">
-<select id="empl_types" form="search" multiple>
-</select>
-<select id="work_schedule" form="search" multiple>
-</select>
-<select id="skills" form="search" multiple>
-</select>
-<select id="pages" form="search">
-</select>
-<select id="size" form="size" multiple>
-    <option name="size" value="10">10</option>
-    <option name="size" value="20">20</option>
-    <option name="size" value="30">30</option>
-</select>
-<input name="name" form="search" id="name">
-<button type="submit" onclick="search();" form="search">Find</button>
-<div id="results">
-</div>
+<header style=" background-color: #fff;">
+    <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
+        <a href="#" class="navbar-brand my-0 mr-md-auto"><img style="   width: 216px;
+    height: 72px;" src="../img/logo.png" alt="logo"></a>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="#">Profile</a>
+            <a class="p-2 text-dark" href="#">Notifications</a>
+        </nav>
+        <a class="btn btn-outline-info" href="#">Log out</a>
+    </div>
+</header>
+
+<main>
+    <div class="container-fluid">
+        <div class="row searchblock justify-content-center">
+            <input type="text" class="form-control" placeholder="Search" style="margin-top: 2%; width: 75%" name="name"
+                   form="search" id="name">
+            <button type="submit" class="btn btn-info" onclick="search();" form="search"
+                    style="height: 80%; margin-top: 2%; margin-left: 1%">Find
+            </button>
+            <div class="form-check-inline">
+                <select id="empl_types" form="search" multiple>
+                </select>
+                <select id="work_schedule" form="search" multiple>
+                </select>
+                <select id="skills" form="search" multiple>
+                </select>
+                <select id="size" form="size" multiple>
+                    <option name="size" value="10">10</option>
+                    <option name="size" value="20">20</option>
+                    <option name="size" value="30">30</option>
+                </select>
+            </div>
+        </div>
+        <div class="row offset-1 mt-5 mb-4">
+            <h2>Vacancies </h2>
+        </div>
+        <div class="row justify-content-center carousel" id='results'></div>
+    </div>
+</main>
 </body>
 </html>
