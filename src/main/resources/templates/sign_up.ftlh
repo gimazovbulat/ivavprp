@@ -25,7 +25,7 @@
                 role = rad[i].value.toString()
             }
         }
-        let body = '{"email": ' + '"' + email + '"' + ', "password": ' + '"' + +password + '"' + ', "role": ' + '"' + role + '"}';
+        let body = '{"email": ' + '"' + email + '"' + ', "password": ' + '"' + password + '"' + ', "role": ' + '"' + role + '"}';
         request.open("POST", "/reg");
         request.setRequestHeader('Content-Type', 'application/json');
         request.send(body);
@@ -58,7 +58,7 @@
             Компания
         </label>
     </div>
-    <button class="btn btn-lg btn-block mt-2" type="button" onclick=javascript:send()>Регистрация</button>
+    <button class="btn btn-lg btn-block mt-2" type="button" onclick=send()>Регистрация</button>
     <p class="text-muted">Уже с нами?</p>
     <a class="btn btn-lg btn-block" href="/login">Вход</a>
     <p class="text-muted">© 2020</p>
