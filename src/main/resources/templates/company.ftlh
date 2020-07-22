@@ -80,6 +80,7 @@
                     <p id="aboutDiv"></p>
                     <#if isCompany == true>
                         <a href="" id="edit_link" class="btn btn-info">Edit</a>
+                            <a href="/vacancies/add" class="btn btn-info">edit vacancies</a>
                     </#if>
                 </div>
 
@@ -103,8 +104,5 @@
     </div>
 </div>
 </main>
-<#if isCompany == true>
-    <a href="/vacancies/add" class="button">edit vacancies</a>
-</#if>
 </body>
 </html>
