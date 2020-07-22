@@ -1,0 +1,96 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection) or
+# paste cURL into the file and request will be converted to HTTP Request format.
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://localhost:8080/reg
+Content-Type: application/json
+
+{
+  "email": "t3@gmail.com",
+  "password": "qwerty007",
+  "role": "TEACHER"
+}
+
+
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "t3@gmail.com",
+  "password": "qwerty007"
+}
+
+###
+
+
+GET http://localhost:8080/signOut
+
+
+###
+
+GET http://localhost:8080/restApi/teachers/10
+
+###
+POST http://localhost:8080/teachers
+AUTH: 0aef7f6a-0f9d-4636-a1ff-8c846a404803
+Content-Type: application/json
+
+{
+  "firstName": "Михаил",
+  "lastName": "Абрамский",
+  "photo": null
+}
+
+###
+
+GET http://localhost:8080/students/profile
+AUTH: 0aef7f6a-0f9d-4636-a1ff-8c846a404803
+
+###
+
+GET http://localhost:8080/admin/teachers
+
+###
+POST http://localhost:8080/restApi/resume/
+Content-Type: application/json
+
+{
+  "name": "name",
+  "text": "text",
+  "skills": [
+    4,
+    2,
+    3
+  ],
+  "employmentType": "FULL_TIME",
+  "workSchedule": "REMOTE_WORKING"
+}
+
+###
+GET http://localhost:8080/restApi/resume/1
+
+###
+
+GET http://localhost:8080/students/skills
+
+###
+POST http://localhost:8080/restApi/resume/
+Content-Type: application/json
+
+{
+  "name": "name",
+  "text": "text",
+  "skills": [
+    4,
+    2,
+    3
+  ],
+  "employmentType": "FULL_TIME",
+  "workSchedule": "REMOTE_WORKING"
+}
