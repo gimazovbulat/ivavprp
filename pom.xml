@@ -10,7 +10,6 @@
     </parent>
     <groupId>ru.itis</groupId>
     <artifactId>ivavprp</artifactId>
-    <version>0.0.1</version>
     <name>ivavprp</name>
     <description>Demo project for Spring Boot</description>
 
