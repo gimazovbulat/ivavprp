@@ -1,6 +1,7 @@
 package ru.itis.ivavprp.services;
 
 import ru.itis.ivavprp.dto.SkillDto;
+import ru.itis.ivavprp.dto.SkillFormDto;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface SkillsService {
     SkillDto findById(Long id);
 
     List<SkillDto> findAll();
+
+    void save(SkillFormDto skill);
 }

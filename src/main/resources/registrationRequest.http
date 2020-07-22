@@ -10,9 +10,9 @@ POST http://localhost:8080/reg
 Content-Type: application/json
 
 {
-  "email": "qwert1@gmail.com",
+  "email": "t3@gmail.com",
   "password": "qwerty007",
-  "role": "COMPANY"
+  "role": "TEACHER"
 }
 
 
@@ -22,7 +22,7 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "email": "qwert@gmail.com",
+  "email": "t3@gmail.com",
   "password": "qwerty007"
 }
 
