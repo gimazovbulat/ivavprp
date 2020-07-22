@@ -15,13 +15,6 @@
     function send() {
         let request = new XMLHttpRequest();
 
-        function reqReadyStateChange() {
-            if (request.readyState == 4 && request.status == 200) {
-                log.info("ok")
-            }
-
-        }
-
         var email = document.getElementById("inputEmail").value;
         var password = document.getElementById("inputPassword").value;
         var rad = document.getElementsByName('radioRole');
@@ -35,7 +28,6 @@
         let body = '{"email": ' + '"' + email + '"' + ', "password": ' + '"' + +password + '"' + ', "role": ' + '"' + role + '"}';
         request.open("POST", "/reg");
         request.setRequestHeader('Content-Type', 'application/json');
-        request.onreadystatechange = reqReadyStateChange;
         request.send(body);
     }
 
@@ -66,9 +58,9 @@
             Компания
         </label>
     </div>
-    <button class="btn btn-lg btn-block mt-2" onclick=javascript:send()>Регистрация</button>
+    <button class="btn btn-lg btn-block mt-2" type="button" onclick=javascript:send()>Регистрация</button>
     <p class="text-muted">Уже с нами?</p>
-    <button class="btn btn-lg btn-block" type="submit">Вход</button>
+    <a class="btn btn-lg btn-block" href="/login">Вход</a>
     <p class="text-muted">© 2020</p>
 </form>
 
