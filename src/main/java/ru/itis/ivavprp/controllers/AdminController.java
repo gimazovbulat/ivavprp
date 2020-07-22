@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.SkillDto;
+import ru.itis.ivavprp.dto.SkillFormDto;
 import ru.itis.ivavprp.dto.TeacherDto;
 import ru.itis.ivavprp.dto.TeacherStatusDto;
 import ru.itis.ivavprp.services.SkillsService;
@@ -25,9 +26,9 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/admin/skill")
-    public ResponseEntity<SkillDto> saveSkill(@RequestBody SkillDto skill) {
-        SkillDto skillDto = skillsService.save(skill);
-        return ResponseEntity.ok(skillDto);
+    public void saveSkill(@RequestBody SkillFormDto skill) {
+        skillsService.save(skill);
+        return;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

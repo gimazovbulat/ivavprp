@@ -4,6 +4,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.ivavprp.dto.SkillDto;
+import ru.itis.ivavprp.dto.SkillFormDto;
 import ru.itis.ivavprp.models.Skill;
 import ru.itis.ivavprp.repositories.SkillsRepository;
 
@@ -31,6 +32,14 @@ public class SkillsServiceImpl implements SkillsService {
             return Skill.toSkillDto(skillsRepository.save(Skill.fromSkillDto(skill)));
         }
         throw new IllegalStateException(); //todo custom exception
+    }
+
+    public void save(SkillFormDto skill) {
+        Skill newSkill = new Skill();
+        newSkill.setName(skill.getName());
+        newSkill.setPoints(skill.getPoints());
+        skillsRepository.save(Skill.fromSkillDto(Skill.toSkillDto(newSkill)));
+
     }
 
     @Transactional

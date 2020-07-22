@@ -11,6 +11,7 @@ import ru.itis.ivavprp.dto.TeacherStatusDto;
 import ru.itis.ivavprp.models.Role;
 import ru.itis.ivavprp.models.Skill;
 import ru.itis.ivavprp.models.Teacher;
+import ru.itis.ivavprp.models.User;
 import ru.itis.ivavprp.repositories.SkillsRepository;
 import ru.itis.ivavprp.repositories.TeacherRepository;
 import ru.itis.ivavprp.repositories.UserRepository;
@@ -99,6 +100,7 @@ public class TeacherServiceImpl extends UserService implements TeacherService {
         }
         return confirmedSkills;
     }
+
     @Override
     public List<TeacherDto> getAll() {
         return teacherRepository.findAll().stream().map(Teacher::toTeacherDto).collect(Collectors.toList());
@@ -111,12 +113,11 @@ public class TeacherServiceImpl extends UserService implements TeacherService {
 
     @Override
     public void updateStatus(TeacherStatusDto teacherStatusDto) {
-        Teacher teacher = teacherRepository.getOne(teacherStatusDto.getId());
-        teacher.setIsActive(teacherStatusDto.isActive());
-        teacherRepository.save(teacher);
+        User user = teacherRepository.getOne(teacherStatusDto.getId());
+        user.setIsActive(!user.getIsActive());
+        System.out.println(user.getIsActive());
+        userRepository.save(user);
     }
-
-
 
 
 }
