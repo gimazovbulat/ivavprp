@@ -31,6 +31,13 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin/skill")
+    public ResponseEntity<List<SkillDto>> getSkills() {
+        return ResponseEntity.ok(skillsService.findAll());
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("admin/skill")
     public void deleteSkill(@RequestBody SkillDto skill) {
         skillsService.remove(skill.getId());
@@ -39,8 +46,8 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/teachers")
-    public List<TeacherDto> getTeachers() {
-        return teacherService.getAll();
+    public ResponseEntity<List<TeacherDto>> getTeachers() {
+        return ResponseEntity.ok(teacherService.getAll());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

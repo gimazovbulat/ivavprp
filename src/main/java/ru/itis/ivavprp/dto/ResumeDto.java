@@ -24,5 +24,5 @@ public class ResumeDto {
     private WorkSchedule workSchedule;
     private String workScheduleToShow;
     private String emplTypeToShow;
-    private Student student;
+    private Long studentId;
 }

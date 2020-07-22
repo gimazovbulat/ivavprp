@@ -25,23 +25,23 @@ public class VacanciesController {
     }
 
     @PreAuthorize("hasAuthority('COMPANY')")
-    @PostMapping("/vacancies")
-    public ResponseEntity<VacancyDto> save(@RequestBody VacancyForm vacancy, @CurrentUser UserDetails userDetails) {
+    @PostMapping("/restApi/vacancies")
+    public void save(@RequestBody VacancyForm vacancy, @CurrentUser UserDetails userDetails) {
         Company company = (Company) userDetails;
         vacancy.setCompanyId(company.getId());
         VacancyDto savedVacancy = vacanciesService.save(vacancy);
-        return ResponseEntity.ok(savedVacancy);
+        return;
     }
 
     @PreAuthorize("hasAuthority('COMPANY')")
-    @DeleteMapping("/vacancies/{id}")
+    @DeleteMapping("/restApi/vacancies/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         vacanciesService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasAuthority('COMPANY')")
-    @PutMapping("/vacancies/{id}")
+    @PutMapping("/restApi/vacancies/{id}")
     public ResponseEntity<VacancyDto> update(@PathVariable("id") Long id, @RequestBody VacancyForm vacancy, @CurrentUser UserDetails userDetails) {
         Company company = (Company) userDetails;
         vacancy.setCompanyId(company.getId());
@@ -65,7 +65,7 @@ public class VacanciesController {
         return ResponseEntity.ok(vacancy);
     }
 
-    @GetMapping("/vacancies/{id}")
+    @GetMapping("/restApi/vacancies/{id}")
     public ResponseEntity<VacancyDto> getById(@PathVariable(value = "id", required = false) Long id) {
         VacancyDto vacDto = vacanciesService.getOneById(id);
         return ResponseEntity.ok(vacDto);
@@ -81,4 +81,6 @@ public class VacanciesController {
         List<VacancyDto> results = (List<VacancyDto>) searchService.getVacanciesResults(search, page, size, coll);
         return ResponseEntity.ok(results);
     }
+
+
 }

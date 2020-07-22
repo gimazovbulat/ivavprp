@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ResumeVacancyService  {
 
-    List<ResumeVacancyDto> getAllByCompanyId(Long companyId);
+    List<ResumeVacancyDto> getAllByCompanyIdNotChecked(Long companyId);
 
     List<ResumeVacancyDto> getAllByStudentId(Long studentId);
 

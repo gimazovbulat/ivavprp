@@ -19,12 +19,12 @@ public class StudentDto extends UserDto {
     private String photo;
     private Integer course;
     private Integer rating;
-    private List<Resume> resumes;
+    private List<ResumeDto> resumes;
     private List<SkillDto> skills;
 
     @Builder(builderMethodName = "studentDtoBuilder")
     public StudentDto(Long id, String email, String password, Boolean isActive, Set<Role> roles,
-                      String firstName, String lastName, String photo, Integer rating, Integer course, List<Resume> resumes, List<SkillDto> skills) {
+                      String firstName, String lastName, String photo, Integer rating, Integer course, List<ResumeDto> resumes, List<SkillDto> skills) {
         super(id, email, password, isActive, roles);
         this.firstName = firstName;
         this.skills = skills;
@@ -33,5 +33,18 @@ public class StudentDto extends UserDto {
         this.photo = photo;
         this.rating = rating;
         this.resumes = resumes;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", photo='" + photo + '\'' +
+                ", course=" + course +
+                ", rating=" + rating +
+                ", resumes=" + resumes +
+                ", skills=" + skills +
+                '}';
     }
 }

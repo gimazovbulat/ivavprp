@@ -40,7 +40,6 @@ public class SkillsController {
     public void deleteSkill(@PathVariable("id") Long id) {
         skillsService.remove(id);
     }
-
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/skills")
     public ResponseEntity<SkillDto> update(@RequestBody SkillDto skill) {

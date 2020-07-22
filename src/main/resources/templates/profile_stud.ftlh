@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/profile_stud.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile_stud.css" media="all">
 </head>
 <body>
 <script type="text/javascript" language="javascript">
@@ -20,10 +20,11 @@
             location.replace("/login");
         }
     }
+
 </script>
 <header>
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
-        <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="img/logo.png" alt="logo"></a>
+        <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="/img/logo.png" alt="logo"></a>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="/profile">Профиль</a>
             <a class="p-2 text-dark" href="/favorites">Избранное</a>
@@ -39,12 +40,13 @@
             <div class="col-sm-10 profile">
                 <div class="row">
                     <div class="col-2 col-sm-4 avatar ">
-                        <img id="avatar" src="img/avatar.png" class="img-fluid align-middle" alt="avatar">
+                        <img id="avatar" src="/img/avatar.png" class="img-fluid align-middle" alt="avatar">
                     </div>
                     <div class="col-4 col-sm-6 text-box">
                         <h1 id="full-name"></h1>
-                        <h2 id="resume"></h2>
-                        <button type="submit" class="btn btn-info">Редактировать профиль</button>
+                        <h1>Список резюме:</h1>
+                        <p id="resume"></p>
+                        <span id="redact"></span>
                     </div>
                 </div>
             </div>
@@ -83,7 +85,7 @@
                 var resumes = student.resumes;
                 resumes.forEach(resume => {
                             document.getElementById("resume").innerHTML +=
-                                resume["id"] + " " +
+                                "<a href = '../resumes/" +resume["id"] + "'>" +
                                 resume["name"] + " " +
                                 resume["text"] + " " +
                                 resume["workScheduleToShow"] + " " +
@@ -93,6 +95,7 @@
                 //document.getElementById("resume").innerHTML = student.resumes[0].name;
                 document.getElementById("full-name").innerHTML = student.firstName + " " + student.lastName;
             }
+            document.getElementById("redact").innerHTML = "<a href='" + id + "/edit'><button class='btn btn-info'>Редактировать профиль</button></a>";
         };
         //alert(localStorage.getItem("token"))
         request.open("GET", "/restApi/students/" + id);
