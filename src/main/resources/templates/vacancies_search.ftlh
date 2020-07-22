@@ -220,7 +220,7 @@
             </div>
         </div>
         <div class="row offset-1 mt-5 mb-4">
-            <h2>Вакансии по запросу </h2>
+            <h2>Vacancies </h2>
         </div>
         <div class="row justify-content-center carousel" id='results'></div>
     </div>

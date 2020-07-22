@@ -18,7 +18,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
-
     <script
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -155,7 +154,7 @@
                             results.append("<div class=\"list-group col-md-10\">\n" +
                                 "                <a href='/resumes_page/" + response[i].id + "' class=\"list-group-item list-group-item-action flex-column align-items-start\" id=\"resHref\">\n" +
                                 "                    <div class=\"d-flex w-100 justify-content-between\">\n" +
-                                "                        <h5 class=\"mb-1\" id=\"" + response[i].name + "\"></h5>\n" +
+                                "                    <h5 class=\"mb-1\">" + response[i].name + "</h5>\n" +
                                 "                    </div>\n" +
                                 "                    <p class=\"mb-1\" id=\"text\">" + response[i].text + "</p>\n" +
                                 "                    <small id=\"empl_sch\">" + response[i].workScheduleToShow + " " + response[i].emplTypeToShow + "</small>\n" +
