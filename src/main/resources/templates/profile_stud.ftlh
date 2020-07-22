@@ -44,9 +44,9 @@
                     </div>
                     <div class="col-4 col-sm-6 text-box">
                         <h1 id="full-name"></h1>
-                        <h1>Список резюме:</h1>
-                        <p id="resume"></p>
-                        <span id="redact"></span>
+                        <h5 class="mt-5">Список резюме:</h5>
+                        <p id="resume" class="justify-content-center mb-5"></p>
+                        <span id="redact" class="mt-5"></span>
                     </div>
                 </div>
             </div>
@@ -85,11 +85,8 @@
                 var resumes = student.resumes;
                 resumes.forEach(resume => {
                             document.getElementById("resume").innerHTML +=
-                                "<a href = '../resumes/" +resume["id"] + "'>" +
-                                resume["name"] + " " +
-                                resume["text"] + " " +
-                                resume["workScheduleToShow"] + " " +
-                                resume["emplTypeToShow"] + "<br><br><br>";
+                                "<a href = '../resume/" +resume["id"] + "'>" +
+                                resume["name"] + "<br>";
                     }
                 );
                 //document.getElementById("resume").innerHTML = student.resumes[0].name;

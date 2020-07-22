@@ -22,37 +22,32 @@
 </header>
 <main>
     <div class="container-fluid">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center text-center">
             <div class="col-sm-10 profile">
-                <div class="row justify-content-center">
-                    <h1 class="title" id="name"></h1>
-                    <br>
+                <div class="row text-center justify-content-center">
+                    <h1 id="name" class="mt-2"></h1>
+                </div>
+                <div class="row">
+                    <p id="text-about" class="offset-1 col-md-10 mt-4 text-justify"></p>
+                </div>
+                <div class="row offset-1">
+                    <p class="font-weight-bold">Тип трудоустройства:  </p>
                     <p id="employment-type"></p>
-                    <br>
+                </div>
+                <div class="row offset-1">
+                    <p class="font-weight-bold">Занятость:  </p>
                     <p id="work-schedule"></p>
-                    <br>
-                    <p id="text-about"></p>
-                    <br>
                 </div>
                 <div class="row justify-content-center">
-                    <a id="student-profile"></a>
+                    <a class="btn btn-info" id="student-profile"></a>
                 </div>
-                <div class="row justify-content-center">
-                    <h1 class="title">Компетенции</h1>
-                    <div id="skills-list">
-                    </div>
+                <div class="row offset-1" id="skills-list">
+                </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<footer>
-    <div class="container-fluid">
-        <div class="row footer justify-content-center">
-            <h2>Футер</h2>
-        </div>
-    </div>
-</footer>
 <script>
     window.onload = function () {
         let token = localStorage.getItem("token");
@@ -75,8 +70,8 @@
                 stud_url.innerHTML = "Перейти к студенту";
                 let skills_list = document.getElementById("skills-list");
                 for (let i = 0; i < resume.skills.length; i++) {
-                    let skill = document.createElement("div");
-                    skill.innerHTML = resume.skills[i].name;
+                    let skill = document.createElement("p");
+                    skill.innerHTML = resume.skills[i].name + "&nbsp";
                     skills_list.appendChild(skill)
                 }
             }

@@ -42,7 +42,7 @@
 
 </script>
 <form class="form-signin">
-    <img class="mb-4" src="../static/img/logo.png" alt="" width="216" height="72">
+    <img class="mb-4" src="/img/logo.png" alt="" width="216" height="72">
     <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
     <label for="inputPassword" class="sr-only">Пароль</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required="">
