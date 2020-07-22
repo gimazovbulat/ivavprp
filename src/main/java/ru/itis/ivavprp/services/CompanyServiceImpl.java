@@ -2,6 +2,7 @@ package ru.itis.ivavprp.services;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.ivavprp.dto.CompanyDto;
 import ru.itis.ivavprp.dto.CompanyInfoDto;
 import ru.itis.ivavprp.models.Company;
@@ -24,6 +25,7 @@ public class CompanyServiceImpl extends UserService implements CompanyService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public boolean save(CompanyDto companyDto) {
         if (userRepository.findByEmail(companyDto.getEmail()).isPresent()) {
             return false;
@@ -37,6 +39,7 @@ public class CompanyServiceImpl extends UserService implements CompanyService {
         return true;
     }
 
+    @Transactional
     @Override
     public CompanyDto saveInfo(Long id, CompanyInfoDto info) {
         Optional<Company> optionalCompany = companyRepository.findById(id);
@@ -45,7 +48,6 @@ public class CompanyServiceImpl extends UserService implements CompanyService {
             Company company = optionalCompany.get();
             company.setName(info.getName());
             company.setAbout(info.getAbout());
-            company.setPhoto(info.getPhoto());
             Company savedCompany = companyRepository.save(company);
             return Company.toCompanyDto(savedCompany);
         }
@@ -62,14 +64,15 @@ public class CompanyServiceImpl extends UserService implements CompanyService {
         throw new IllegalStateException(); //custom exception
     }
 
+    @Transactional
     @Override
     public CompanyDto update(Long id, CompanyInfoDto info) {
         Company company = companyRepository.getOne(id);
-        if (info.getAbout() != null){
+        if (info.getAbout() != null && !info.getAbout().isEmpty()){
             company.setAbout(info.getAbout());
         }
-        if (info.getName() != null){
-            company.setName(company.getName());
+        if (info.getName() != null && !info.getName().isEmpty()){
+            company.setName(info.getName());
         }
         Company savedCompany = companyRepository.save(company);
         return Company.toCompanyDto(savedCompany);
