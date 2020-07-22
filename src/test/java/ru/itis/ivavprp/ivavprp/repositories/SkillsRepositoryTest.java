@@ -12,7 +12,7 @@ import ru.itis.ivavprp.repositories.SkillsRepository;
 
 @SpringBootTest
 public class SkillsRepositoryTest {
-    private SkillsRepository skillsRepository;
+   /* private SkillsRepository skillsRepository;
 
     @BeforeEach
     void setUp() {
@@ -39,5 +39,5 @@ public class SkillsRepositoryTest {
     void findByName(){
         System.out.println(skillsRepository.findByName("Spring"));
     }
-
+*/
 }

@@ -22,7 +22,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ru.itis.ivavprp.repositories")
 public class TestApplicationConfig {
-
+/*
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -58,5 +58,5 @@ public class TestApplicationConfig {
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         return properties;
-    }
+    }*/
 }

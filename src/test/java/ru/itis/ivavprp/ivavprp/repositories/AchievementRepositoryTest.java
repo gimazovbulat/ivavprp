@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class AchievementRepositoryTest {
-    private AchievementsRepository achievementsRepository;
+    /*private AchievementsRepository achievementsRepository;
     private SkillsRepository skillsRepository;
 
     @BeforeEach
@@ -50,5 +50,5 @@ public class AchievementRepositoryTest {
         achievementsRepository.deleteById(2L);
         assertEquals(1, achievementsRepository.getAll(PageRequest.of(0, 10)).size());
 
-    }
+    }*/
 }

@@ -13,7 +13,7 @@ import ru.itis.ivavprp.repositories.StudentRepository;
 @SpringBootTest
 public class StudentRepositoryTest {
 
-    private StudentRepository studentRepository;
+   /* private StudentRepository studentRepository;
 
     @BeforeEach
     void setUp() {
@@ -26,5 +26,5 @@ public class StudentRepositoryTest {
     void save() {
         Student student = studentRepository.save(Student.studentBuilder().email("qwerty1234").password("qwe").build());
         System.out.println(student);
-    }
+    }*/
 }
