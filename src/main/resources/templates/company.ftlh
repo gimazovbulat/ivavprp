@@ -65,7 +65,8 @@
             <a class="p-2 text-dark" href="#">Profile</a>
             <a class="p-2 text-dark" href="#">Notifications</a>
         </nav>
-        <a class="btn btn-outline-info" href="#">Log out</a>
+        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
+
     </div>
 </header>
 <div class="container-fluid">
@@ -79,8 +80,8 @@
                     <h1 id="nameDiv"></h1>
                     <p id="aboutDiv"></p>
                     <#if isCompany == true>
-                        <a href="" id="edit_link" class="btn btn-info">Edit</a>
-                            <a href="/vacancies/add" class="btn btn-info">edit vacancies</a>
+                        <a href="/company_page/${user.id}/edit" id="edit_link" class="btn btn-info">Edit</a>
+                        <a href="/vacancies/add" class="btn btn-info">edit vacancies</a>
                     </#if>
                 </div>
 

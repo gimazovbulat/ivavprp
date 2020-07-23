@@ -17,7 +17,7 @@
 
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                location.replace("/main")
+                location.replace("/students/${user.id}")
             }
         };
         let name = document.getElementById("name").value;
@@ -52,12 +52,7 @@
 <header>
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="../img/logo.png" alt="logo"></a>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Профиль</a>
-            <a class="p-2 text-dark" href="#">Избранное</a>
-            <a class="p-2 text-dark" href="#">Уведомления</a>
-        </nav>
-        <a class="btn btn-outline-info" href="#">Выход</a>
+        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
 </header>
 <main>

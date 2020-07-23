@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>profile_teacher</title>
+    <title>Профиль студента</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,9 +26,8 @@
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="/img/logo.png" alt="logo"></a>
         <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="/profile">Профиль</a>
-            <a class="p-2 text-dark" href="/favorites">Избранное</a>
-            <a class="p-2 text-dark" href="/notifications">Уведомления</a>
+            <a class="p-2 text-dark" href="/students/${user.id}">Профиль</a>
+            <a class="p-2 text-dark" href="/notif/stud/${user.id}">Уведомления</a>
         </nav>
         <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
@@ -47,7 +46,11 @@
                         <h5 class="mt-5">Список резюме:</h5>
                         <p id="resume" class="justify-content-center mb-5"></p>
                         <span id="redact" class="mt-5"></span>
+                        <#if isStudent == true>
+                            <a href="/resume/add" class="btn btn-info">Добавить резюме</a>
+                        </#if>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -61,13 +64,6 @@
     </div>
 
 </main>
-<footer class="fixed-bottom">
-    <div class="container-fluid">
-        <div class="row footer justify-content-center">
-            <h2>Футер</h2>
-        </div>
-    </div>
-</footer>
 
 <script>
     window.onload = function () {
@@ -84,9 +80,9 @@
                 var student = JSON.parse(this.responseText);
                 var resumes = student.resumes;
                 resumes.forEach(resume => {
-                            document.getElementById("resume").innerHTML +=
-                                "<a href = '../resume/" +resume["id"] + "'>" +
-                                resume["name"] + "<br>";
+                        document.getElementById("resume").innerHTML +=
+                            "<a href = '../resume/" + resume["id"] + "'>" +
+                            resume["name"] + "<br>";
                     }
                 );
                 //document.getElementById("resume").innerHTML = student.resumes[0].name;
@@ -98,6 +94,7 @@
         request.open("GET", "/restApi/students/" + id);
         request.setRequestHeader('AUTH', localStorage.getItem("token"));
         request.send();
+        
     };
 </script>
 

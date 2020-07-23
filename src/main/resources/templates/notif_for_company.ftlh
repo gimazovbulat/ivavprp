@@ -28,7 +28,7 @@
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Профиль</a>
             <a class="p-2 text-dark" href="#">Избранное</a>
-            <a class="p-2 text-dark" href="/notif/comp">Уведомления</a>
+            <a class="p-2 text-dark" href="/notif/comp/">Уведомления</a>
         </nav>
         <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
@@ -93,7 +93,7 @@
                         "<button type='submit'  class='btn btn-info button'> Принять </button></form>" +
                         "<form method='POST' action='http://localhost:8080/notif/comp/" + resumeVacancy.id + "/NOT_APLIED'>" +
                         "<button type='submit'  class='btn btn-info button'> Отклонить </button></form>"
-                        +"</li>";
+                        + "</li>";
                 });
 
 

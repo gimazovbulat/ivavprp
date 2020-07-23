@@ -26,9 +26,7 @@
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="/img/logo.png" alt="logo"></a>
         <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="/profile">Профиль</a>
-            <a class="p-2 text-dark" href="/favorites">Избранное</a>
-            <a class="p-2 text-dark" href="/notifications">Уведомления</a>
+            <a class="p-2 text-dark" href="/teachers/${user.id}">Профиль</a>
         </nav>
         <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
@@ -44,7 +42,9 @@
                     </div>
                     <div class="col-4 col-sm-6 text-box">
                         <h1 id="full-name"></h1>
-                        <button type="submit" class="btn btn-info">Редактировать профиль</button>
+                        <#if isTeacher == true>
+                            <a href="/teacher/edit" type="submit" class="btn btn-info">Редактировать профиль</a>
+                        </#if>
                     </div>
                 </div>
             </div>
