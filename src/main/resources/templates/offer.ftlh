@@ -17,7 +17,7 @@
             <a class="p-2 text-dark" href="#">Избранное</a>
             <a class="p-2 text-dark" href="#">Уведомления</a>
         </nav>
-        <a class="btn btn-outline-info" href="#">Выход</a>
+        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
 </header>
 <main>

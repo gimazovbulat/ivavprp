@@ -19,7 +19,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 let slice = this.responseText.slice(10, 46)
                 localStorage.setItem("token", slice)
-                location.replace("/main")
+                location.replace("/vacancies_search_page")
             }
         };
         let email = document.getElementById("inputEmail").value;
@@ -40,15 +40,11 @@
     <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
     <label for="inputPassword" class="sr-only">Пароль</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required="">
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Запомнить меня
-        </label>
-    </div>
+
     <button class="btn btn-lg btn-block" type="button" onclick="javascript: sendReq()">Вход
     </button>
 
-    <button class="btn btn-lg btn-block">Регистрация</button>
+    <a href="/signUp" class="btn btn-lg btn-block">Регистрация</a>
     <p class="mt-5 mb-3 text-muted">© 2020</p>
 </form>
 

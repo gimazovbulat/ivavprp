@@ -94,4 +94,8 @@ public class User implements UserDetails {
     public Token getCurrentToken() {
         return currentToken;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

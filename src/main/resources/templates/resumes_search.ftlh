@@ -171,11 +171,22 @@
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img style="   width: 216px;
     height: 72px;" src="../img/logo.png" alt="logo"></a>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Profile</a>
-            <a class="p-2 text-dark" href="#">Notifications</a>
-        </nav>
-        <a class="btn btn-outline-info" href="#">Log out</a>
+        <#if isStudent == true>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="/students/${user.id}">Профиль</a>
+            </nav>
+        </#if>
+        <#if isCompany == true>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="/company_page/${user.id}">Профиль</a>
+            </nav>
+        </#if>
+        <#if isTeacher == true>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="/teachers/${user.id}">Профиль</a>
+            </nav>
+        </#if>
+        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
 </header>
 <main>
