@@ -30,8 +30,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserRepository usersRepository;
 
-    @Value("${token.expired}")
-    private Integer expiredSecondsForToken;
+    private Integer expiredSecondsForToken = 360000;
 
     @Override
     public TokenDto login(LoginDto loginData) {
