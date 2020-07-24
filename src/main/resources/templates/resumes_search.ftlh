@@ -97,27 +97,26 @@
             let skillsVals = skills.val()
             if (document.getElementById('skills').selectedIndex !== -1) {
                 let skillsValsJoined = skillsVals.join("*")
-                url = url + "skills:" + skillsValsJoined + ","
+                url = url + "skills:" + skillsValsJoined + ",";
                 console.log(url)
             } else {
-                let options = document.getElementById('skills').options
+              /*  let options = document.getElementById('skills').options
                 let optionsValues = [];
                 for (let i = 0; i < options.length; i++) {
                     optionsValues[i] = options[i].value;
                 }
                 let skillsValsJoined = optionsValues.join("*")
-                url = url + "skills:" + skillsValsJoined + ","
+                url = url + "skills:" + skillsValsJoined + ","*/
                 console.log(url)
             }
 
             let workScheduleVals = workSchedule.val()
             if (workScheduleVals !== undefined) {
                 if (workScheduleVals.length === 0) {
-                    url = url + "workSchedule:" + "FULL_DAY" + ","
-
+                    // url = url + "workSchedule:" + "FULL_DAY" + ","
                 } else {
                     let workScheduleValsJoined = workScheduleVals.join("'")
-                    url = url + "workSchedule:" + workScheduleValsJoined + ","
+                    url = url + "workSchedule:" + workScheduleValsJoined;
                     console.log(url)
                 }
             }
@@ -125,11 +124,11 @@
             let emplTypeVals = emplTypes.val()
             if (emplTypeVals !== undefined) {
                 if (emplTypeVals.length === 0) {
-                    url = url + "employmentType:" + "FULL_TIME"
+                    // url = url + "employmentType:" + "FULL_TIME"
                     console.log(url)
                 } else {
                     let emplTypeValsJoined = emplTypeVals.join("'")
-                    url = url + "employmentType:" + emplTypeValsJoined
+                    url = url + ",employmentType:" + emplTypeValsJoined
                     console.log(url)
                 }
             }
