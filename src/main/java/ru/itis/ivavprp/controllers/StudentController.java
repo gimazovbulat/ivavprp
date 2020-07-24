@@ -1,12 +1,17 @@
 package ru.itis.ivavprp.controllers;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.ivavprp.dto.SkillDto;
+import ru.itis.ivavprp.dto.SkillForm;
 import ru.itis.ivavprp.dto.StudentDto;
 import ru.itis.ivavprp.dto.VacancyDto;
 import ru.itis.ivavprp.models.Student;
@@ -15,6 +20,10 @@ import ru.itis.ivavprp.search.SearchService;
 import ru.itis.ivavprp.security.CurrentUser;
 import ru.itis.ivavprp.services.StudentService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -133,8 +142,29 @@ public class StudentController {
 
     @GetMapping("/restApi/students/{id}")
     public ResponseEntity<StudentDto> get(@PathVariable("id") Long id) {
-        System.out.println("qq");
         return ResponseEntity.ok(studentService.findStudentById(id));
     }
 
+    @PostMapping("/restApi/students/add")
+    public void addSkillsToStudent(@RequestBody SkillForm skill) {
+        studentService.addSkills(studentService.findStudentById(skill.getStudentId()), skill.getSkills());
+    }
+
+    @GetMapping("/restApi/students/{studentId}/{skillId}")
+    public void removeSkillsFromStudent(@PathVariable("studentId") Long studentId, @PathVariable("skillId") Long skillId, HttpServletResponse response) throws IOException {
+        List<Long> removeSkills = new ArrayList<>();
+        removeSkills.add(skillId);
+        studentService.removeSkills(studentService.findStudentById(studentId), removeSkills);
+        response.sendRedirect("/students/" + studentId);
+    }
+    @PreAuthorize("hasAuthority('STUDENT')")
+    @PostMapping("/restApi/students/{id}/edit")
+    public void updateStudent(@PathVariable("id") Long id,@RequestBody StudentDto student, HttpServletResponse response) throws IOException {
+        System.out.println(student);
+        System.out.println(id);
+        studentService.update(id,student);
+        System.out.println("Hello");
+        response.sendRedirect("/students/"+id);
+        System.out.println("Hello");
+    }
 }
