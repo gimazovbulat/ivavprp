@@ -49,7 +49,7 @@
 <header>
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="../img/logo.png" alt="logo"></a>
-        <a class="btn btn-outline-success" href="#">Выход</a>
+        <button class="btn btn-outline-success" type="button" onclick="logout()">Выход</button>
     </div>
 </header>
 <main>

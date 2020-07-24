@@ -101,27 +101,26 @@
             let skillsVals = skills.val()
             if (document.getElementById('skills').selectedIndex !== -1) {
                 let skillsValsJoined = skillsVals.join("*")
-                url = url + "skills:" + skillsValsJoined + ","
+                url = url + "skills:" + skillsValsJoined + ",";
                 console.log(url)
             } else {
-                let options = document.getElementById('skills').options
-                let optionsValues = [];
-                for (let i = 0; i < options.length; i++) {
-                    optionsValues[i] = options[i].value;
-                }
-                let skillsValsJoined = optionsValues.join("*")
-                url = url + "skills:" + skillsValsJoined + ","
+                // let options = document.getElementById('skills').options
+                // let optionsValues = [];
+                // for (let i = 0; i < options.length; i++) {
+                //     optionsValues[i] = options[i].value;
+                // }
+                // let skillsValsJoined = optionsValues.join("*")
+                // url = url + "skills:" + skillsValsJoined + ","
                 console.log(url)
             }
 
             let workScheduleVals = workSchedule.val()
             if (workScheduleVals !== undefined) {
                 if (workScheduleVals.length === 0) {
-                    url = url + "workSchedule:" + "FULL_DAY" + ","
-
+                    // url = url + "workSchedule:" + "FULL_DAY" + ","
                 } else {
                     let workScheduleValsJoined = workScheduleVals.join("'")
-                    url = url + "workSchedule:" + workScheduleValsJoined + ","
+                    url = url + "workSchedule:" + workScheduleValsJoined;
                     console.log(url)
                 }
             }
@@ -129,11 +128,11 @@
             let emplTypeVals = emplTypes.val()
             if (emplTypeVals !== undefined) {
                 if (emplTypeVals.length === 0) {
-                    url = url + "employmentType:" + "FULL_TIME"
+                    // url = url + "employmentType:" + "FULL_TIME"
                     console.log(url)
                 } else {
                     let emplTypeValsJoined = emplTypeVals.join("'")
-                    url = url + "employmentType:" + emplTypeValsJoined
+                    url = url + ",employmentType:" + emplTypeValsJoined
                     console.log(url)
                 }
             }
@@ -175,7 +174,7 @@
                                 "            </div>\n" +
                                 "            <p class=\"mb-1\" id=\"text\">" + response[i].text + "</p>\n" +
                                 "            <small id=\"empl_sch\">" + response[i].workScheduleToShow + " " + response[i].emplTypeToShow + "</small>\n" +
-                                "            <small id=\"salary\">" + salary +  "</small>\n" +
+                                "            <small id=\"salary\">" + salary + "</small>\n" +
                                 "        </a>\n" +
                                 "    </div>")
                         }
@@ -189,11 +188,23 @@
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img style="   width: 216px;
     height: 72px;" src="../img/logo.png" alt="logo"></a>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Profile</a>
-            <a class="p-2 text-dark" href="#">Notifications</a>
-        </nav>
-        <a class="btn btn-outline-info" href="#">Log out</a>
+        <#if isStudent == true>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="/students/${user.id}">Профиль</a>
+            </nav>
+        </#if>
+        <#if isCompany == true>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="/company_page/${user.id}">Профиль</a>
+            </nav>
+        </#if>
+        <#if isTeacher == true>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="/teachers/${user.id}">Профиль</a>
+            </nav>
+        </#if>
+        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
+
     </div>
 </header>
 

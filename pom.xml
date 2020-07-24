@@ -10,8 +10,8 @@
     </parent>
     <groupId>ru.itis</groupId>
     <artifactId>ivavprp</artifactId>
-    <version>0.0.1</version>
     <name>ivavprp</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -112,6 +112,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>ivavprp</finalName>
     </build>
 
 </project>

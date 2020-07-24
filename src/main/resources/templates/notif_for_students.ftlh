@@ -28,7 +28,7 @@
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Профиль</a>
             <a class="p-2 text-dark" href="#">Избранное</a>
-            <a class="p-2 text-dark" href="/notif/comp">Уведомления</a>
+            <a class="p-2 text-dark" href="/notif/stud/">Уведомления</a>
         </nav>
         <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
@@ -38,31 +38,20 @@
     <div class="container-fluid">
         <div class="row justify-content-center align-content-center">
             <div class="col-sm-10 profile">
-
                 <div class="row justify-content-center align-content-center">
                     <div class="col-sm-10 profile">
                         <h1>Уведомления</h1>
                     </div>
                 </div>
-
-
                 <div class="row justify-content-center align-content-center">
                     <div class="col-sm-10 profile">
                         <ul class="list-group list" id="info">
-
-
                         </ul>
                     </div>
                 </div>
-
-
             </div>
         </div>
-
-
     </div>
-
-
 </main>
 
 
@@ -88,9 +77,9 @@
                         "'>" + resumeVacancy.vacancy["name"] + "</a>" + "<br>" +
                         "<a href='http://localhost:8080/resume/" +
                         resumeVacancy.resume["id"] +
-                        "'>" + resumeVacancy.resume["name"] + "</a>"+ "<br>" +
+                        "'>" + resumeVacancy.resume["name"] + "</a>" + "<br>" +
                         resumeVacancy.status
-                        +"</li>";
+                        + "</li>";
                 });
 
 

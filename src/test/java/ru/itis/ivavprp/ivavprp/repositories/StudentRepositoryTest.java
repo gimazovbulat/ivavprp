@@ -13,8 +13,8 @@ import ru.itis.ivavprp.repositories.StudentRepository;
 @SpringBootTest
 public class StudentRepositoryTest {
 
-   /* private StudentRepository studentRepository;
-
+//    private StudentRepository studentRepository;
+/*
     @BeforeEach
     void setUp() {
         ApplicationContext context = new AnnotationConfigApplicationContext(TestApplicationConfig.class);

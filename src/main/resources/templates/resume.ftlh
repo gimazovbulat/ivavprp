@@ -9,15 +9,11 @@
     <link rel="stylesheet" href="../css/resume.css">
 </head>
 <body>
+
 <header>
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="../img/logo.png" alt="logo"></a>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Профиль</a>
-            <a class="p-2 text-dark" href="#">Избранное</a>
-            <a class="p-2 text-dark" href="#">Уведомления</a>
-        </nav>
-        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
+        <b class="btn btn-outline-info" onclick="logout()">Выход</b>
     </div>
 </header>
 <main>
@@ -31,21 +27,22 @@
                     <p id="text-about" class="offset-1 col-md-10 mt-4 text-justify"></p>
                 </div>
                 <div class="row offset-1">
-                    <p class="font-weight-bold">Тип трудоустройства:  </p>
+                    <p class="font-weight-bold">Тип трудоустройства: </p>
                     <p id="employment-type"></p>
                 </div>
                 <div class="row offset-1">
-                    <p class="font-weight-bold">Занятость:  </p>
+                    <p class="font-weight-bold">Занятость: </p>
                     <p id="work-schedule"></p>
                 </div>
                 <div class="row justify-content-center">
                     <a class="btn btn-info" id="student-profile"></a>
                 </div>
                 <div class="row offset-1" id="skills-list">
-                </div>
+                    <p>Список компетенций: </p>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
 <script>

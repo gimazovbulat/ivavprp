@@ -17,7 +17,7 @@
 
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                location.replace("/main")
+                location.replace("/company_page/${user.id}")
             }
         };
         let name = document.getElementById("name").value;
@@ -57,12 +57,8 @@
 <header>
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="../img/logo.png" alt="logo"></a>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Профиль</a>
-            <a class="p-2 text-dark" href="#">Избранное</a>
-            <a class="p-2 text-dark" href="#">Уведомления</a>
-        </nav>
-        <a class="btn btn-outline-info" href="#">Выход</a>
+
+        <a class="btn btn-outline-info" onclick="logout()">Выход</a>
     </div>
 </header>
 <main>
@@ -88,13 +84,13 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-12 text-box">
-                    <h1 class="pod_title">Название вакансии</h1>
+                    <h1 class="pod_title">Минимальная зарплата</h1>
                     <input id="min-salary" type="number" class="form-control" name="min-salary"/>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-12 text-box">
-                    <h1 class="pod_title">Название вакансии</h1>
+                    <h1 class="pod_title">Максимальная зарплата</h1>
                     <input id="max-salary" type="number" class="form-control" name="max-salary"/>
                 </div>
             </div>
