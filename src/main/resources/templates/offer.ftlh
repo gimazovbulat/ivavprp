@@ -14,7 +14,6 @@
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="../img/logo.png" alt="logo"></a>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Профиль</a>
-            <a class="p-2 text-dark" href="#">Избранное</a>
             <a class="p-2 text-dark" href="#">Уведомления</a>
         </nav>
         <a class="btn btn-outline-info" onclick="logout()">Выход</a>
@@ -25,19 +24,32 @@
         <div class="row justify-content-center">
             <div class="col-sm-10 profile">
                 <div class="row justify-content-center">
-                    <h1 class="title" id="name"></h1>
-                    <br>
-                    <p id="employment-type"></p>
-                    <br>
-                    <p id="work-schedule"></p>
-                    <br>
-                    <p id="text-about"></p>
-                    <br>
-                    <p id="min"></p>
-                    <br>
-                    <p id="max"></p>
-                    <br>
-                    <p id="time"></p>
+                    <div class="row text-center justify-content-center">
+                        <h1 id="name"></h1>
+                    </div>
+                    <div class="row offset-1">
+                        <p id="text-about"></p>
+                    </div>
+                    <div class="row">
+                        <p class="font-weight-bold">Тип трудоустройства: </p>
+                        <p id="employment-type"></p>
+                    </div>
+                    <div class="row offset-1">
+                        <p class="font-weight-bold">Занятость: </p>
+                        <p id="work-schedule"></p>
+                    </div>
+                    <div class="row offset-1">
+                        <p class="font-weight-bold">Минимальная зарплата: </p>
+                        <p id="min"></p>
+                    </div>
+                    <div class="row offset-1">
+                        <p class="font-weight-bold">Максимальная зарплата: </p>
+                        <p id="max"></p>
+                    </div>
+                    <div class="row offset-1">
+                        <p class="font-weight-bold">Опубликовано: </p>
+                        <p id="time"></p>
+                    </div>
                 </div>
                 <div class="row justify-content-center">
                     <a id="company-profile"></a>
@@ -82,7 +94,7 @@
                 document.getElementById("max").innerHTML = vacancy.maxSalary
                 document.getElementById("time").innerHTML = vacancy.time
                 let stud_url = document.getElementById("company-profile");
-                stud_url.href = "/companies/" + vacancy.companyId;
+                stud_url.href = "/company_page/" + vacancy.companyId;
                 stud_url.innerHTML = "Перейти к компании";
                 let skills_list = document.getElementById("skills-list");
                 for (let i = 0; i < vacancy.skills.length; i++) {

@@ -46,7 +46,7 @@
                             let li = document.createElement('li');
                             li.classList.add("list-group-item")
                             let a = document.createElement('a');
-                            a.setAttribute("href", '/vacancies_page/' + response.vacancies[i].id)
+                            a.setAttribute("href", '/vacancies/' + response.vacancies[i].id)
                             a.innerHTML += response.vacancies[i].name;
                             li.appendChild(a);
                             vacancies.appendChild(li);
@@ -62,8 +62,8 @@
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4">
         <a href="#" class="navbar-brand my-0 mr-md-auto"><img src="../img/logo.png" alt="logo"></a>
         <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Profile</a>
-            <a class="p-2 text-dark" href="#">Notifications</a>
+            <a class="p-2 text-dark" href="#">Компания</a>
+            <a class="p-2 text-dark" href="/notif/comp/">Уведомления</a>
         </nav>
         <a class="btn btn-outline-info" onclick="logout()">Выход</a>
 
