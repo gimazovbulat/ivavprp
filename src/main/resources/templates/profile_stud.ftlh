@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>profile_student</title>
+    <title>Профиль</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -81,6 +81,10 @@
                         <h5>Список резюме: </h5>
                         <p id="resume" class="justify-content-center mb-5"></p>
                         <span id="add_skill" class="mt-5"></span>
+
+                        <div class="row justify-content-center">
+                            <a href="/resume/add" class="btn btn-info mb-5 mt-2">Добавить резюме</a>
+                        </div>
                     </div>
                     <div class="col-4 text-box justify-content-center text-center">
                         <h5>Список компетенций: </h5>
@@ -119,7 +123,7 @@
                 var skills = student.skills;
                 skills.forEach(skill => {
                     document.getElementById("skills").innerHTML +=
-                        "<p>" + skill.name + " " + skill.confirmed + "<a href='/restApi/students/" + id + "/" + skill.id + "'>Удалить</a></p>";
+                        "<p>" + skill.name + " " + "<a href='/restApi/students/" + id + "/" + skill.id + "'>Удалить</a></p>";
                 })
 
                 var resumes = student.resumes;

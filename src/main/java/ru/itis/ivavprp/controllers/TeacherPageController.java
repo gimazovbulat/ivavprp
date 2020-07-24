@@ -1,5 +1,6 @@
 package ru.itis.ivavprp.controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,21 @@ public class TeacherPageController {
     }
 
     @GetMapping("/teacher/edit")
-    public String getEditPage() {
+    public String getEditPage(@CurrentUser UserDetails userDetails, Model model) {
+        User user = (User) userDetails;
+        if (userDetails != null) {
+            model.addAttribute("user", user);
+            List<String> authoritiesNames = userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            if (authoritiesNames.contains("TEACHER")) {
+                model.addAttribute("isTeacher", true);
+            } else {
+                model.addAttribute("isTeacher", false);
+            }
+        } else {
+            model.addAttribute("isTeacher", false);
+        }
         return "teacher_edit";
     }
 
